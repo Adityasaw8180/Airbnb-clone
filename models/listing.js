@@ -2,22 +2,38 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
-    title : {
-        type:String,
-        require : true,
+    title: {
+        type: String,
+        require: true,
     },
-    description : String, 
-    image : {
-        type :String,
-        set :(v)=> v==="" ? "defaul link" : v,
+    description: {
+        type: String,
     },
-    price : {
-        type:Number,
-        set :(v)=> v==="" ? 0 : v,
+    image: {
+        filename: {
+            type: String,
+            require: true,
+        },
+        url: {
+            type: String,
+            set: (v) => v === "" ? "defaul link" : v,
+        },
+        
     },
-    location: String,
-    country : String,
-    
+    price: {
+        type: Number,
+        default: "0",
+        require: true,
+    },
+    location: {
+        type: String,
+        require: true,
+    },
+    country: {
+        type: String,
+        require: true,
+    },
+
 });
 
 const Listing = mongoose.model('Listing', listingSchema);
