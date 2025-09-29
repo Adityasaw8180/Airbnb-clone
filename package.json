@@ -1,0 +1,28 @@
+{
+  "name": "airbnb",
+  "version": "1.0.0",
+  "description": "MajorProject",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.crsom/Adityasaw8180/Airbnb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Adityasaw8180/Airbnb/issues"
+  },
+  "homepage": "https://github.com/Adityasaw8180/Airbnb#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mogoose": "^0.0.1-security",
+    "mongoose": "^8.18.2",
+    "nodemon": "^3.1.10"
+  }
+}
