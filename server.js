@@ -7,13 +7,14 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const Listing = require('./models/listing');
 const path = require('path');
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', "ejs");
 app.set('views', path.join(__dirname, "views"))
 const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb"
 
 main().then(() => {
-    console.log('connected mongobd successfully');
+    console.log('mongoDB connected');
 }).catch((err) => {
     console.log(`connection failed ${err}`);
 });
@@ -43,6 +44,17 @@ app.get("/listings/:id",async (req,res)=>{
     const list = await Listing.findById(id);
     res.render("listings/show.ejs", {list});
 });
+
+//postRoute
+app.use(express.urlencoded({ extended: true }));  // add this at the top, after app=express()
+
+app.post("/listings", async (req, res) => {
+    const newListing = new Listing(req.body.Listing);
+    await newListing.save();
+    console.log(newListing);
+    res.redirect("/listings");   // redirect after saving
+});
+
 
 // app.get('/testlisting', async (req, res) => {
 //     const sampleList = {

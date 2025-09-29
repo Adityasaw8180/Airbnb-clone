@@ -4,15 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airbnb</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        ul li {
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            background: #fafafa;
+            font-size: 16px;
+            color: #444;
+            border: 1px solid #e3e3e3;
+        }
+        ul li span {
+            font-weight: bold;
+            color: #222;
+        }
+    </style>
 </head>
 <body>
-    <h3>Listing details</h3>
-    <ul>
-        <li> <%= list.title %> </li>
-        <li> <%= list.description %> </li>
-        <li>&#8377 <%= list.price.toLocaleString("en-IN") %> </li>
-        <li> <%= list.location %> </li>
-        <li> <%= list.country %> </li>
-    </ul>
+    <div class="container">
+        <h3>Listing Details</h3>
+        <ul>
+            <li><span>Title:</span> <%= list.title %></li>
+            <li><span>Description:</span> <%= list.description %></li>
+            <li><span>Price:</span> &#8377 <%= list.price.toLocaleString("en-IN") %></li>
+            <li><span>Location:</span> <%= list.location %></li>
+            <li><span>Country:</span> <%= list.country %></li>
+        </ul>
+    </div>
 </body>
 </html>
