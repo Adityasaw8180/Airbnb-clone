@@ -50,6 +50,7 @@
 <body>
     <div class="container">
         <h3>Listing Details</h3>
+        <hr><br>
         <ul>
             <li><span>Title:</span> <%= list.title %></li>
             <li><span>Description:</span> <%= list.description %></li>
@@ -57,6 +58,12 @@
             <li><span>Location:</span> <%= list.location %></li>
             <li><span>Country:</span> <%= list.country %></li>
         </ul>
+        <a href="/listings/<%= list._id%>/edit">Edit</a>
+        <hr><br><br>
+        <form method="POST"action="/listings/<%= list.id%>/?_method=DELETE">
+            <button>Delete</button>
+        </form>
+        
     </div>
 </body>
 </html>

@@ -6,6 +6,9 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const Listing = require('./models/listing');
 const path = require('path');
+const methodOverride = require('method-override');  
+const ejsMate = require('ejs-mate');    
+app.engine('ejs', ejsMate);
 
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // View engine
 app.set('view engine', "ejs");
 app.set('views', path.join(__dirname, "views"));
-
+app.use(methodOverride('_method')); 
 // Database connection
 const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb";
 
@@ -58,6 +61,27 @@ app.post("/listings", async (req, res) => {
     res.redirect("/listings");   
 });
 
+//Edit Route
+app.get("/listings/:id/edit", async (req, res) => {
+    const { id } = req.params;
+    const list = await Listing.findById(id);
+    res.render("listings/edit.ejs", { list });
+});
+
+//Update Route
+app.put("/listings/:id", async (req, res) => {
+    const { id } = req.params;
+    const updatedListing = await Listing.findByIdAndUpdate(id, req.body.Listing, { new: true });
+    console.log(updatedListing);
+    res.redirect(`/listings/${id}`);
+});
+
+//Delete Route
+app.delete("/listings/:id",async (req,res)=>{
+    const { id }= req.params;
+    let deletedList = await Listing.findByIdAndDelete(id);
+    res.redirect("/listings");
+})
 // Server Start
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
