@@ -1,4 +1,3 @@
-//server 
 const express = require('express');
 const app = express();
 
@@ -7,11 +6,16 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const Listing = require('./models/listing');
 const path = require('path');
+
+// Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
 
+// View engine
 app.set('view engine', "ejs");
-app.set('views', path.join(__dirname, "views"))
-const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb"
+app.set('views', path.join(__dirname, "views"));
+
+// Database connection
+const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb";
 
 main().then(() => {
     console.log('mongoDB connected');
@@ -23,54 +27,38 @@ async function main() {
     await mongoose.connect(MONGO_DB);
 }
 
+// Routes
 app.get("/", (req, res) => {
     res.send("Home Page");
 });
 
-//indexRoute
+// Index Route
 app.get("/listings", async (req, res) => {
     const allListings = await Listing.find({});
-    res.render('listings/index.ejs', {allListings});
-})
+    res.render('listings/index.ejs', { allListings });
+});
 
-//CreateRoute
-app.get("/listings/new",(req,res)=>{
+// New Route
+app.get("/listings/new", (req, res) => {
     res.render("listings/new.ejs");
 });
 
-//showRoute
-app.get("/listings/:id",async (req,res)=>{
-    const {id} = req.params;
+// Show Route
+app.get("/listings/:id", async (req, res) => {
+    const { id } = req.params;
     const list = await Listing.findById(id);
-    res.render("listings/show.ejs", {list});
+    res.render("listings/show.ejs", { list });
 });
 
-//postRoute
-app.use(express.urlencoded({ extended: true }));  // add this at the top, after app=express()
-
+// Create Route (POST)
 app.post("/listings", async (req, res) => {
     const newListing = new Listing(req.body.Listing);
     await newListing.save();
     console.log(newListing);
-    res.redirect("/listings");   // redirect after saving
+    res.redirect("/listings");   
 });
 
-
-// app.get('/testlisting', async (req, res) => {
-//     const sampleList = {
-//         title: "My new House",
-//         description: 'I Buy new House',
-//         image: "",
-//         price: 200,
-//         location: "Kolhapur",
-//         country: "India",
-//     }
-
-//     await Listing.insertOne(sampleList);
-//     console.log(sampleList);
-//     res.send(sampleList);
-// });
-
+// Server Start
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

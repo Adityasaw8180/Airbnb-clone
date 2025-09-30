@@ -1,3 +1,4 @@
+//reset all data in database
 const mongoose = require('mongoose');
 const initData = require('./data')
 const Listing = require("../models/listing");
