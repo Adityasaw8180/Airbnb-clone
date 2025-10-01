@@ -50,6 +50,7 @@ app.get("/listings/new", (req, res) => {
 app.get("/listings/:id", async (req, res) => {
     const { id } = req.params;
     const list = await Listing.findById(id);
+    console.log(list);
     res.render("listings/show.ejs", { list });
 });
 
