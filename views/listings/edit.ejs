@@ -1,27 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- layout('layouts/boilerplate') -%>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Airbnb</title>
+<body class="bg-light">
+  <div class="container py-5">
+    <h2 class="text-center mb-4">
+      <i class="fa-solid fa-pen-to-square me-2"></i> Edit Listing
+    </h2>
 
-</head>
+    <form method="POST" action="/listings/<%=list._id%>/?_method=PUT" class="mx-auto" style="max-width: 600px;">
 
-<body>
-  <div class="container">
-    <h2>Edit</h2>
-    <form method="POST" action="/listings/<%=list._id%>/?_method=PUT" required>
-      <!-- <input type="text" name="Listing[price]" value="<%=list.url%>" required> -->
-      <input type="text" name="Listing[title]" value="<%=list.title%>" required>
-      <textarea name="Listing[description]" required><%=list.description%></textarea>
-      <input type="number" name="Listing[price]" value="<%=list.price%>" required>
-      <input type="text" name="Listing[location]" value="<%=list.location%>" required>
-      <input type="text" name="Listing[country]" value="<%=list.country%>" required>
-      <button>Edit</button>
-      
+      <!-- Image -->
+      <div class="form-floating mb-3">
+        <input type="text" name="Listing[image][url]" value="<%=list.image.url%>" class="form-control" id="image"
+          placeholder="Image URL" required>
+        <label for="image"><i class="fa-solid fa-image me-2"></i> Image URL</label>
+      </div>
+
+      <!-- Title -->
+      <div class="form-floating mb-3">
+        <input type="text" name="Listing[title]" value="<%=list.title%>" class="form-control" id="title"
+          placeholder="Title" required>
+        <label for="title"><i class="fa-solid fa-heading me-2"></i> Title</label>
+      </div>
+
+      <!-- Description -->
+      <div class="form-floating mb-3">
+        <textarea name="Listing[description]" class="form-control" id="description" style="height: 120px"
+          placeholder="Description" required><%=list.description%></textarea>
+        <label for="description"><i class="fa-solid fa-align-left me-2"></i> Description</label>
+      </div>
+
+      <!-- Price -->
+      <div class="form-floating mb-3">
+        <input type="number" name="Listing[price]" value="<%=list.price%>" class="form-control" id="price"
+          placeholder="Price" required>
+        <label for="price"><i class="fa-solid fa-dollar-sign me-2"></i> Price</label>
+      </div>
+
+      <!-- Location + Country side by side -->
+      <div class="row g-3">
+        <!-- Location -->
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" name="Listing[location]" class="form-control" id="location" value="<%=list.location%>"
+              placeholder="Location" required>
+            <label for="location"><i class="fa-solid fa-location-dot me-2"></i> Location</label>
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" name="Listing[country]" class="form-control" id="country" value="<%=list.country%>"
+              placeholder="Country" required>
+            <label for="country"><i class="fa-solid fa-flag me-2"></i> Country</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-dark btn-lg">
+          <i class="fa-solid fa-check me-2"></i> Save Changes
+        </button>
+      </div>
     </form>
   </div>
-</body>
 
-</html>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+</body>
