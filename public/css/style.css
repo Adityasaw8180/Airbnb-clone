@@ -50,6 +50,23 @@ body{
 
 }
 
+html, body {
+    height: 100%;              /* Make body take full height */
+    margin: 0;                 /* Remove default margin */
+    display: flex;             /* Enable flexbox */
+    flex-direction: column;    /* Arrange items vertically */
+}
+
+main {
+    flex: 1;   /* Take up remaining space */
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+}
+
 /* CARD */
 
 .card{
