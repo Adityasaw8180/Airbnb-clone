@@ -39,10 +39,10 @@ app.get("/", (req, res) => {
 });
 
 // Index Route
-app.get("/listings", async (req, res) => {
+app.get("/listings", wrapAsync(async (req, res) => {
     const allListings = await Listing.find({});
     res.render('listings/index.ejs', { allListings });
-});
+}));
 
 // New Route
 app.get("/listings/new", (req, res) => {
@@ -50,15 +50,18 @@ app.get("/listings/new", (req, res) => {
 });
 
 // Show Route
-app.get("/listings/:id", async (req, res) => {
+app.get("/listings/:id", wrapAsync(async (req, res) => {
     const { id } = req.params;
     const list = await Listing.findById(id);
     // console.log(list);
     res.render("listings/show.ejs", { list });
-});
+}));
 
 // Create Route (POST)
 app.post("/listings", wrapAsync (async (req, res) => {
+    if(!req.body.Listing) {
+        throw new ExpressError("Invalid Listing Data", 400)
+    };
     const newListing = new Listing(req.body.Listing);
     await newListing.save();
     console.log(newListing);
@@ -66,26 +69,29 @@ app.post("/listings", wrapAsync (async (req, res) => {
 }));
 
 //Edit Route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit",wrapAsync( async (req, res) => {
     const { id } = req.params;
     const list = await Listing.findById(id);
     res.render("listings/edit.ejs", { list });
-});
+}));
 
 //Update Route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id",wrapAsync( async (req, res) => {    
+    if(!req.body.Listing) {
+        throw new ExpressError("Invalid Listing Data", 400)
+    };
     const { id } = req.params;
     const updatedListing = await Listing.findByIdAndUpdate(id, req.body.Listing, { new: true });
     console.log(updatedListing);
     res.redirect(`/listings/${id}`);
-});
+}));
 
 //Delete Route
-app.delete("/listings/:id",async (req,res)=>{
+app.delete("/listings/:id",wrapAsync(async (req,res)=>{
     const { id }= req.params;
     let deletedList = await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
-});
+}));
  
 //Express Error for all other routes
 
