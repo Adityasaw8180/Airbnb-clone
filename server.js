@@ -10,6 +10,8 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');    
 app.engine('ejs', ejsMate);
 
+const wrapAsync = require('./utils/wrapAsync');
+
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the 'public' directory
@@ -55,12 +57,12 @@ app.get("/listings/:id", async (req, res) => {
 });
 
 // Create Route (POST)
-app.post("/listings", async (req, res) => {
+app.post("/listings", wrapAsync (async (req, res) => {
     const newListing = new Listing(req.body.Listing);
     await newListing.save();
     console.log(newListing);
     res.redirect("/listings");   
-});
+}));
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
@@ -83,6 +85,12 @@ app.delete("/listings/:id",async (req,res)=>{
     let deletedList = await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
 })
+
+app.use((err, req, res, next) => {
+    const { status = 500, message = "Something went wrong" } = err;
+    res.status(status).send(message);
+});
+
 // Server Start
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
