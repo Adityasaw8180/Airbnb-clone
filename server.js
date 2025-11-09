@@ -86,12 +86,13 @@ app.delete("/listings/:id",async (req,res)=>{
     let deletedList = await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
 });
-
+ 
 //Express Error for all other routes
 
-app.all("*", (req, res, next) => {
+app.all(/.*/, (req, res, next) => {
     next(new ExpressError("Page Not Found", 404));
 });
+
 
 // Error Handling Middleware
 
