@@ -11,6 +11,7 @@ const ejsMate = require('ejs-mate');
 app.engine('ejs', ejsMate);
 
 const wrapAsync = require('./utils/wrapAsync');
+const ExpressError = require('./utils/ExpressError');
 
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
@@ -84,7 +85,15 @@ app.delete("/listings/:id",async (req,res)=>{
     const { id }= req.params;
     let deletedList = await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
-})
+});
+
+//Express Error for all other routes
+
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page Not Found", 404));
+});
+
+// Error Handling Middleware
 
 app.use((err, req, res, next) => {
     const { status = 500, message = "Something went wrong" } = err;
