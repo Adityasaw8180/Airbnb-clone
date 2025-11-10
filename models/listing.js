@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const { required } = require('../schemaValidate');
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
     title: {
         type: String,
-        require: true,
+        required: true,
     },
     description: {
         type: String,
@@ -12,7 +13,7 @@ const listingSchema = new Schema({
     image: {
         filename: {
             type: String,
-            require: true,
+            required: false,
         },
         url: {
             type: String,
@@ -23,15 +24,15 @@ const listingSchema = new Schema({
     price: {
         type: Number,
         default: "0",
-        require: true,
+        required: true,
     },
     location: {
         type: String,
-        require: true,
+        required: true,
     },
     country: {
         type: String,
-        require: true,
+        required: true,
     },
     reviews:[
         {

@@ -40,8 +40,10 @@ app.get("/", (req, res) => {
 
 //validate listing middleware
 const validateListing = (req, res, next) => {
-    const result = listingSchema.validate(req.body.Listing);
-    if (result.error) {
+    const { error } = listingSchema.validate(req.body.Listing);
+
+   console.log(error);
+    if (error) {
         throw new ExpressError("Invalid Listing Data", 400);    
     } else {
         next();
@@ -103,6 +105,7 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 //Express Error for all other routes
 
 app.all(/.*/, (req, res, next) => {
+    console.log(`404 Error: ${req.method} ${req.originalUrl}`);
     next(new ExpressError("Page Not Found", 404));
 });
 
@@ -111,7 +114,9 @@ app.all(/.*/, (req, res, next) => {
 
 app.use((err, req, res, next) => {
     const { status = 500, message = "Something went wrong" } = err;
+    console.log(err);
     res.status(status).render("error.ejs", { err });
+
 });
 
 // Server Start
