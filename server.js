@@ -1,3 +1,4 @@
+//server.js
 const express = require('express');
 const app = express();
 
@@ -13,7 +14,7 @@ app.engine('ejs', ejsMate);
 
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
-const listingSchema = require('./schemaValidate');
+const {listingSchema,reviewSchema} = require('./schemaValidate');
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the 'public' directory
@@ -42,8 +43,7 @@ app.get("/", (req, res) => {
 //validate listing middleware
 const validateListing = (req, res, next) => {
     const { error } = listingSchema.validate(req.body.Listing);
-
-   console.log(error);
+   //console.log(error);
     if (error) {
         throw new ExpressError("Invalid Listing Data", 400);    
     } else {
@@ -51,6 +51,15 @@ const validateListing = (req, res, next) => {
     }
 };
 
+const validateReviews = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body.Review);
+   //console.log(error);
+    if (error) {
+        throw new ExpressError("Invalid Review Data", 400);    
+    } else {
+        next();
+    }
+};
 // Index Route
 app.get("/listings", wrapAsync(async (req, res) => {
     const allListings = await Listing.find({});
@@ -104,7 +113,7 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 //Post Review Route
-app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
+app.post("/listings/:id/reviews",validateReviews, wrapAsync(async (req, res) => {
     const { id } = req.params;
     const list = await Listing.findById(id);
     const newReview = new Review(req.body.review);
