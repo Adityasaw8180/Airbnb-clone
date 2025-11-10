@@ -38,6 +38,16 @@ app.get("/", (req, res) => {
     res.send("Home Page");
 });
 
+//validate listing middleware
+const validateListing = (req, res, next) => {
+    const result = listingSchema.validate(req.body.Listing);
+    if (result.error) {
+        throw new ExpressError("Invalid Listing Data", 400);    
+    } else {
+        next();
+    }
+};
+
 // Index Route
 app.get("/listings", wrapAsync(async (req, res) => {
     const allListings = await Listing.find({});
@@ -58,16 +68,8 @@ app.get("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 // Create Route (POST)
-app.post("/listings", wrapAsync(async (req, res) => {
-    if (!req.body.Listing) {
-        throw new ExpressError("Invalid Listing Data", 400)
-    };
+app.post("/listings",validateListing, wrapAsync(async (req, res) => {
     const newListing = new Listing(req.body.Listing);
-    const result = listingSchema.validate(req.body.Listing);
-    if (result.error) {
-        throw new ExpressError("Invalid Listing Data", 400);
-    }
-
     await newListing.save();
     console.log(newListing);
     res.redirect("/listings");
@@ -81,7 +83,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //Update Route
-app.put("/listings/:id", wrapAsync(async (req, res) => {
+app.put("/listings/:id", validateListing,wrapAsync(async (req, res) => {
     if (!req.body.Listing) {
         throw new ExpressError("Invalid Listing Data", 400)
     };
