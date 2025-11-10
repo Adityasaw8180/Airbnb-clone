@@ -6,13 +6,15 @@
     <div class="row g-4">
       <div class="col-lg-7">
         <div class="mb-3">
-          <img src="<%= list.image.url %>" class="img-fluid rounded-4 w-100" alt="main_image" style="max-height: 500px; object-fit: cover;">
+          <img src="<%= list.image.url %>" class="img-fluid rounded-4 w-100" alt="main_image"
+            style="max-height: 500px; object-fit: cover;">
         </div>
 
         <% if(list.images && list.images.length > 0) { %>
         <div class="d-flex gap-2 flex-wrap">
           <% list.images.forEach(img => { %>
-            <img src="<%= img.url %>" class="img-thumbnail rounded-3" style="width: 30%; height: 150px; object-fit: cover;" alt="additional_image">
+            <img src="<%= img.url %>" class="img-thumbnail rounded-3"
+              style="width: 30%; height: 150px; object-fit: cover;" alt="additional_image">
           <% }) %>
         </div>
         <% } %>
@@ -25,7 +27,8 @@
             <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
               <h2 class="fw-bold fs-3 text-dark me-2"><%= list.title %></h2>
               <span class="fs-4 fw-bold text-danger flex-shrink-0">
-                <i class="fa-solid fa-indian-rupee-sign small me-1"></i><%= list.price.toLocaleString("en-IN") %>
+                <i class="fa-solid fa-indian-rupee-sign small me-1"></i>
+                <%= list.price.toLocaleString("en-IN") %>
               </span>
             </div>
 
@@ -56,6 +59,52 @@
         </div>
       </div>
     </div>
+
+    <!-- ✅ Review Form Section -->
+    <div class="row mt-5">
+      <div class="col-lg-10 mx-auto">
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-body p-4">
+
+            <h4 class="fw-bold text-primary mb-4 text-center">
+              <i class="fa-solid fa-star text-warning me-2"></i>Leave a Review
+            </h4>
+
+            <form action="/listings/<%= list._id %>/reviews" method="POST">
+              <div class="row g-4 align-items-stretch">
+                
+                <!-- ⭐ Left side: Rating -->
+                <div class="col-md-4 d-flex flex-column justify-content-center border-end">
+                  <label for="ratingRange" class="form-label fw-semibold">Your Rating (1 - 5)</label>
+                  <input type="range" class="form-range" min="1" max="5" step="1" id="ratingRange" name="review[rating]" 
+                    value="3" required oninput="ratingValue.textContent = this.value">
+                  <p class="text-muted mb-0">Rating: 
+                    <span id="ratingValue" class="fw-bold text-dark">3</span> / 5
+                  </p>
+                </div>
+
+                <!-- 💬 Right side: Comment + Submit -->
+                <div class="col-md-8">
+                  <div class="mb-3">
+                    <label for="reviewComment" class="form-label fw-semibold">Your Comment</label>
+                    <textarea class="form-control" id="reviewComment" name="review[comment]" rows="4"
+                      placeholder="Write your thoughts..." required></textarea>
+                  </div>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-success fw-semibold">
+                      <i class="fa-solid fa-paper-plane me-1"></i> Submit Review
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ✅ End Review Form Section -->
 
   </div>
 
