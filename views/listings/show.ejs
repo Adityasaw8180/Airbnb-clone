@@ -1,4 +1,14 @@
 <%- layout('layouts/boilerplate') -%>
+  <style>
+    .review-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 
   <body class="bg-light">
     <div class="container py-5">
@@ -110,7 +120,64 @@
 
                 </div>
               </form>
+              <hr class="my-5">
 
+              <h4 class="fw-bold text-primary text-center mb-4">
+                <i class="fa-solid fa-comments me-2 text-warning"></i> What People Say
+              </h4>
+
+              <% if (list.reviews && list.reviews.length> 0) { %>
+                <div class="row g-4">
+                  <% list.reviews.forEach((rev)=> { %>
+                    <div class="col-md-6">
+                      <div class="card shadow-sm border-0 h-100 rounded-4 review-card">
+                        <div class="card-body p-4">
+
+                          <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                              <i class="fa-solid fa-user-circle text-secondary me-2 fs-4"></i>
+                              <span class="fw-semibold text-dark fs-6">Anonymous User</span>
+                            </div>
+                            <div>
+                              <% for (let i=0; i < rev.rating; i++) { %>
+                                <i class="fa-solid fa-star text-warning"></i>
+                                <% } %>
+                                  <% for (let i=rev.rating; i < 5; i++) { %>
+                                    <i class="fa-regular fa-star text-muted"></i>
+                                    <% } %>
+                            </div>
+                          </div>
+
+                          <!-- Review text -->
+                          <p class="text-secondary mb-3 fst-italic review-text">
+                            "<%= rev.comment %>"
+                          </p>
+
+                          <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                              Posted on <%= rev.createdAt ? rev.createdAt.toDateString() : "Recently" %>
+                            </small>
+
+                            <!-- Delete Button -->
+                            <form action="/listings/<%= list._id %>/reviews/<%= rev._id %>?_method=DELETE" method="POST"
+                              class="ms-2">
+                              <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i> Delete
+                              </button>
+                            </form>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <% }) %>
+
+                </div>
+                <% } else { %>
+                  <p class="text-center text-muted fst-italic">
+                    No reviews yet. Be the first to share your experience!
+                  </p>
+                  <% } %>
 
             </div>
           </div>

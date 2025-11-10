@@ -74,7 +74,7 @@ app.get("/listings/new", (req, res) => {
 // Show Route
 app.get("/listings/:id", wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const list = await Listing.findById(id);
+    const list = await Listing.findById(id).populate('reviews');
     // console.log(list);
     res.render("listings/show.ejs", { list });
 }));
@@ -122,6 +122,14 @@ app.post("/listings/:id/reviews",validateReviews, wrapAsync(async (req, res) => 
     await list.save();
     console.log(newReview);
     res.redirect(`/listings/${id}`);
+}));
+
+//Delete Review Route
+app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+  const { id, reviewId } = req.params;
+  await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+  await Review.findByIdAndDelete(reviewId);
+  res.redirect(`/listings/${id}`);
 }));
 
 //Express Error for all other routes
