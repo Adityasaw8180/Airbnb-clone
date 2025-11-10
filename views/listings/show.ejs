@@ -75,7 +75,7 @@
 
                 <div class="col-md-4 d-flex flex-column justify-content-center border-end">
                   <label for="ratingRange" class="form-label fw-semibold">Your Rating (1 - 5)</label>
-                  <input type="range" class="form-range" min="1" max="5" step="1" id="ratingRange" name="review[rating]" 
+                  <input type="range" class="form-range" min="1" max="5" step="1" id="ratingRange" name="review[Rating]" 
                     value="3" required oninput="ratingValue.textContent = this.value">
                   <p class="text-muted mb-0">Rating: 
                     <span id="ratingValue" class="fw-bold text-dark">3</span> / 5
@@ -85,7 +85,7 @@
                 <div class="col-md-8">
                   <div class="mb-3">
                     <label for="reviewComment" class="form-label fw-semibold">Your Comment</label>
-                    <textarea class="form-control" id="reviewComment" name="review[comment]" rows="4"
+                    <textarea class="form-control" id="reviewComment" name="review[Comment]" rows="4"
                       placeholder="Write your thoughts..." required></textarea>
                   </div>
                   <div class="d-grid">

@@ -5,6 +5,7 @@ const PORT = 8080;
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const Listing = require('./models/listing');
+const Review = require('./models/reviews');
 const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
@@ -100,6 +101,18 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     const { id } = req.params;
     let deletedList = await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
+}));
+
+//Post Review Route
+app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const list = await Listing.findById(id);
+    const newReview = new Review(req.body.review);
+    list.reviews.push(newReview);
+    await newReview.save();
+    await list.save();
+    console.log(newReview);
+    res.redirect(`/listings/${id}`);
 }));
 
 //Express Error for all other routes
