@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });   //Include route parameters from the parent route
 const wrapAsync = require('../utils/wrapAsync');
 const ExpressError = require('../utils/ExpressError');
-const { listingSchema, reviewSchema } = require('../schemaValidate.js');
+const { reviewSchema } = require('../schemaValidate.js');
 const Listing = require('../models/listing');
 const Review = require('../models/reviews');
 
