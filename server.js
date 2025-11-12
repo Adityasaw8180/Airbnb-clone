@@ -15,6 +15,7 @@ app.engine('ejs', ejsMate);
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
 const {listingSchema,reviewSchema} = require('./schemaValidate');
+const listings = require('./routes/listing');
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the 'public' directory
@@ -40,17 +41,11 @@ app.get("/", (req, res) => {
     res.send("Home Page");
 });
 
-//validate listing middleware
-const validateListing = (req, res, next) => {
-    const { error } = listingSchema.validate(req.body.Listing);
-   //console.log(error);
-    if (error) {
-        throw new ExpressError("Invalid Listing Data", 400);    
-    } else {
-        next();
-    }
-};
+//Use listing routes
+app.use('/listings',listings)
 
+
+//validate review middleware
 const validateReviews = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body.Review);
    //console.log(error);
@@ -60,57 +55,6 @@ const validateReviews = (req, res, next) => {
         next();
     }
 };
-// Index Route
-app.get("/listings", wrapAsync(async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render('listings/index.ejs', { allListings });
-}));
-
-// New Route
-app.get("/listings/new", (req, res) => {
-    res.render("listings/new.ejs");
-});
-
-// Show Route
-app.get("/listings/:id", wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const list = await Listing.findById(id).populate('reviews');
-    // console.log(list);
-    res.render("listings/show.ejs", { list });
-}));
-
-// Create Route (POST)
-app.post("/listings",validateListing, wrapAsync(async (req, res) => {
-    const newListing = new Listing(req.body.Listing);
-    await newListing.save();
-    console.log(newListing);
-    res.redirect("/listings");
-}));
-
-//Edit Route
-app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const list = await Listing.findById(id);
-    res.render("listings/edit.ejs", { list });
-}));
-
-//Update Route
-app.put("/listings/:id", validateListing,wrapAsync(async (req, res) => {
-    if (!req.body.Listing) {
-        throw new ExpressError("Invalid Listing Data", 400)
-    };
-    const { id } = req.params;
-    const updatedListing = await Listing.findByIdAndUpdate(id, req.body.Listing, { new: true });
-    console.log(updatedListing);
-    res.redirect(`/listings/${id}`);
-}));
-
-//Delete Route
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    let deletedList = await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-}));
 
 //Post Review Route
 app.post("/listings/:id/reviews",validateReviews, wrapAsync(async (req, res) => {
