@@ -1,4 +1,3 @@
-// schemaValidate.js
 const Joi = require("joi");
 
 // Listing validation schema
