@@ -5,24 +5,28 @@ const app = express();
 const PORT = 8080;
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const Listing = require('./models/listing');
-const Review = require('./models/reviews');
 const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 app.engine('ejs', ejsMate);
 
+const Listing = require('./models/listing');
+const Review = require('./models/reviews');
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
 const {listingSchema,reviewSchema} = require('./schemaValidate');
 const listings = require('./routes/listing');
+const reviews = require('./routes/review');
+
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 // View engine
 app.set('view engine', "ejs");
 app.set('views', path.join(__dirname, "views"));
 app.use(methodOverride('_method'));
+
 // Database connection
 const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb";
 
@@ -44,37 +48,8 @@ app.get("/", (req, res) => {
 //Use listing routes
 app.use('/listings',listings)
 
-
-//validate review middleware
-const validateReviews = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body.Review);
-   //console.log(error);
-    if (error) {
-        throw new ExpressError("Invalid Review Data", 400);    
-    } else {
-        next();
-    }
-};
-
-//Post Review Route
-app.post("/listings/:id/reviews",validateReviews, wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const list = await Listing.findById(id);
-    const newReview = new Review(req.body.review);
-    list.reviews.push(newReview);
-    await newReview.save();
-    await list.save();
-    console.log(newReview);
-    res.redirect(`/listings/${id}`);
-}));
-
-//Delete Review Route
-app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
-  const { id, reviewId } = req.params;
-  await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-  await Review.findByIdAndDelete(reviewId);
-  res.redirect(`/listings/${id}`);
-}));
+//Use review routes
+app.use('/listings/:id/reviews',reviews)
 
 //Express Error for all other routes
 

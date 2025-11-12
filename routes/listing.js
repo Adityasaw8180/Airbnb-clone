@@ -5,8 +5,6 @@ const ExpressError = require('../utils/ExpressError');
 const { listingSchema, reviewSchema } = require('../schemaValidate.js');
 const Listing = require('../models/listing');
 
-
-
 //validate listing middleware
 const validateListing = (req, res, next) => {
     const { error } = listingSchema.validate(req.body.Listing);
