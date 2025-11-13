@@ -6,148 +6,153 @@
       
       <!-- Heading -->
       <h2 class="text-center mb-4 create-heading">
-        <i class="fa-solid fa-plus-circle me-2"></i> Create New Listing <br>
+        <i class="fa-solid fa-user-plus me-2"></i> Create Your Account
       </h2>
 
-      <form method="POST" action="/listings" class="needs-validation" novalidate>
-        <!-- Title -->
+      <form method="POST" action="/register" class="needs-validation" novalidate>
+        
+        <!-- Email -->
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="title" placeholder="Enter title" name="Listing[title]" required>
-          <label for="title"><i class="fa-solid fa-heading me-1"></i> Title</label>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            Please enter a title.
-          </div>
+          <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+          <label for="email"><i class="fa-solid fa-envelope me-1"></i> Email</label>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please enter a valid email.</div>
         </div>
 
-        <!-- Description -->
+        <!-- Username -->
         <div class="form-floating mb-3">
-          <textarea class="form-control" id="description" placeholder="Enter description" name="Listing[description]" rows="4" required></textarea>
-          <label for="description"><i class="fa-solid fa-align-left me-1"></i> Description</label>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            Please enter a description.
-          </div>
+          <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" minlength="3" required>
+          <label for="username"><i class="fa-solid fa-user me-1"></i> Username</label>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please enter a username (min 3 characters).</div>
         </div>
 
-        <!-- Image URL -->
-        <div class="form-floating mb-3">
-          <input type="url" class="form-control" id="image" placeholder="Enter Image URL" name="Listing[image][url]">
-          <label for="image"><i class="fa-solid fa-image me-1"></i> Image URL</label>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            Please enter a valid URL.
-          </div>
+        <!-- Password -->
+        <div class="form-floating mb-3 position-relative">
+          <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" minlength="6" required>
+          <label for="password"><i class="fa-solid fa-lock me-1"></i> Password</label>
+          <button type="button" id="togglePassword" class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2" style="z-index: 5;">
+            Show
+          </button>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Password must be at least 6 characters.</div>
         </div>
 
-        <!-- Price -->
-        <div class="form-floating mb-3">
-          <input type="number" class="form-control" id="price" placeholder="Enter price" name="Listing[price]" required>
-          <label for="price"><i class="fa-solid fa-indian-rupee-sign me-1"></i> Price</label>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            Please enter a price.
-          </div>
-        </div>
-
-        <!-- Location -->
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="location" placeholder="Enter location" name="Listing[location]" required>
-          <label for="location"><i class="fa-solid fa-location-dot me-1"></i> Location</label>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            Please enter a location.
-          </div>
-        </div>
-
-        <!-- Country -->
+        <!-- Confirm Password -->
         <div class="form-floating mb-4">
-          <input type="text" class="form-control" id="country" placeholder="Enter country" name="Listing[country]" required>
-          <label for="country"><i class="fa-solid fa-flag me-1"></i> Country</label>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            Please enter a country.
-          </div>
+          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" name="confirmPassword" required>
+          <label for="confirmPassword"><i class="fa-solid fa-lock me-1"></i> Confirm Password</label>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback" id="confirmFeedback">Passwords do not match.</div>
         </div>
 
-        <button type="submit" class="btn btn-pink w-100 btn-lg shadow-sm">Submit</button>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-pink w-100 btn-lg shadow-sm">Sign Up</button>
+
+        <div class="text-center mt-3">
+          <small class="text-muted">
+            Already have an account?
+            <a href="/login" class="text-decoration-none">Log in</a>
+          </small>
+        </div>
       </form>
     </div>
   </div>
 </div>
 
+<!-- Bootstrap client-side validation -->
 <script>
-// Bootstrap client-side validation
 (() => {
-  'use strict'
-  const forms = document.querySelectorAll('.needs-validation')
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
+  'use strict';
+  const form = document.querySelector('.needs-validation');
+  const password = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirmPassword');
+  const toggle = document.getElementById('togglePassword');
+  const confirmFeedback = document.getElementById('confirmFeedback');
+
+  // Password show/hide
+  toggle.addEventListener('click', () => {
+    const type = password.type === 'password' ? 'text' : 'password';
+    password.type = confirmPassword.type = type;
+    toggle.textContent = type === 'password' ? 'Show' : 'Hide';
+  });
+
+  form.addEventListener('submit', (event) => {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (password.value !== confirmPassword.value) {
+      confirmPassword.setCustomValidity('Passwords do not match');
+      confirmFeedback.style.display = 'block';
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      confirmPassword.setCustomValidity('');
+    }
+
+    form.classList.add('was-validated');
+  }, false);
+})();
 </script>
 
 <style>
-/* Create New Listing heading style */
+/* Airbnb gradient heading */
 .create-heading {
-    font-size: 2rem;
-    font-weight: 700;
-    background: linear-gradient(90deg, #FF385C, #FF7F99);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #FF385C, #FF7F99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
 }
 
 .create-heading::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background-color: #FF385C;
-    margin: 8px auto 0;
-    border-radius: 2px;
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #FF385C;
+  margin: 8px auto 0;
+  border-radius: 2px;
 }
 
 /* Pink Airbnb theme button */
 .btn-pink {
-    background-color: #FF385C;
-    color: #fff;
-    border: none;
-    transition: all 0.3s ease;
+  background-color: #FF385C;
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 .btn-pink:hover {
-    background-color: #e0314b;
-    transform: translateY(-2px);
+  background-color: #e0314b;
+  transform: translateY(-2px);
 }
 
 /* Card styling */
 .card {
-    border-radius: 15px;
-    background-color: #fff;
+  border-radius: 15px;
+  background-color: #fff;
 }
 
-/* Floating labels focus */
-.form-floating>.form-control:focus {
-    border-color: #FF385C;
-    box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.25);
+/* Input focus effect */
+.form-floating > .form-control:focus {
+  border-color: #FF385C;
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.25);
+}
+
+/* Password toggle button */
+#togglePassword {
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  color: #FF385C;
+  border-color: #FF385C;
+}
+
+#togglePassword:hover {
+  background-color: #FF385C;
+  color: #fff;
 }
 </style>

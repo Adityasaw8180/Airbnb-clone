@@ -11,15 +11,14 @@ const ejsMate = require('ejs-mate');
 app.engine('ejs', ejsMate);
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
-const Listing = require('./models/listing');
-const Review = require('./models/reviews');
-const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
-const {listingSchema,reviewSchema} = require('./schemaValidate');
-const listings = require('./routes/listing');
-const reviews = require('./routes/review');
-
+const listingsRoute = require('./routes/listing');
+const reviewsRoute = require('./routes/review');
+const userRoute = require('./routes/user');
 
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +32,7 @@ app.use(methodOverride('_method'));
 // Database connection
 const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb";
 
+//function to connect to mongoDB
 main().then(() => {
     console.log('mongoDB connected');
 }).catch((err) => {
@@ -55,25 +55,34 @@ const sessionOptions = {
         httpOnly : true
     },
 };
+
+//use session and flash
 app.use(session(sessionOptions));
 app.use(flash());
 
+//passport configuration
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Flash middleware
 app.use((req,res,next)=>{
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 });
 
-// Routes
-app.get("/", (req, res) => {
-    res.redirect("/listings");
-});
+//Use user routes
+app.use("/", userRoute);
+
 
 //Use listing routes
-app.use('/listings',listings)
+app.use('/listings',listingsRoute)
 
 //Use review routes
-app.use('/listings/:id/reviews',reviews)
+app.use('/listings/:id/reviews',reviewsRoute)
 
 //Express Error for all other routes
 app.all(/.*/, (req, res, next) => {

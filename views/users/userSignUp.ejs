@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | Airbnb</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+    }
+    .signup-container {
+      max-width: 420px;
+      margin: 5% auto;
+      background: #fff;
+      padding: 30px 35px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .btn-airbnb {
+      background-color: #ff385c;
+      border: none;
+    }
+    .btn-airbnb:hover {
+      background-color: #e03150;
+    }
+    .form-control:focus {
+      border-color: #ff385c;
+      box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-container">
+    <h2 class="text-center mb-3 fw-bold">Sign Up</h2>
+    <p class="text-center text-muted">Create your Airbnb account to start exploring.</p>
+
+    <!-- Hidden alert -->
+    <div id="alertBox" class="alert alert-danger d-none" role="alert"></div>
+
+    <form id="signupForm" action="/signup" method="POST" novalidate>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required>
+          <button class="btn btn-outline-secondary" type="button" id="togglePassword">Show</button>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter password" required>
+      </div>
+      <button type="submit" class="btn btn-airbnb text-white w-100 py-2">Sign Up</button>
+      <p class="text-center mt-3 text-muted">Already have an account? <a href="/login" class="text-danger text-decoration-none">Log in</a></p>
+    </form>
+  </div>
+
+  <script>
+  const form = document.getElementById('signupForm');
+  const alertBox = document.getElementById('alertBox');
+  const togglePassword = document.getElementById('togglePassword');
+  const password = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirmPassword');
+
+  togglePassword.addEventListener('click', () => {
+    const type = password.type === 'password' ? 'text' : 'password';
+    password.type = confirmPassword.type = type;
+    togglePassword.textContent = type === 'password' ? 'Show' : 'Hide';
+  });
+
+  form.addEventListener('submit', (e) => {
+    alertBox.classList.add('d-none');
+
+    const email = document.getElementById('email').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const pass = password.value;
+    const confirmPass = confirmPassword.value;
+
+    if (!email || !username || !pass || !confirmPass) {
+      e.preventDefault();
+      showError("All fields are required.");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      e.preventDefault();
+      showError("Please enter a valid email address.");
+    } else if (username.length < 3) {
+      e.preventDefault();
+      showError("Username must be at least 3 characters long.");
+    } else if (pass.length < 6) {
+      e.preventDefault();
+      showError("Password must be at least 6 characters long.");
+    } else if (pass !== confirmPass) {
+      e.preventDefault();
+      showError("Passwords do not match.");
+    }
+  });
+
+  function showError(message) {
+    alertBox.textContent = message;
+    alertBox.classList.remove('d-none');
+  }
+</script>
+
+</body>
+</html>
