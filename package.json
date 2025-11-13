@@ -19,9 +19,13 @@
   },
   "homepage": "https://github.com/Adityasaw8180/Airbnb#readme",
   "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie": "^1.0.2",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "joi": "^18.0.1",
     "method-override": "^3.0.0",
     "mogoose": "^0.0.1-security",
     "mongoose": "^8.18.2",

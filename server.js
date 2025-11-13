@@ -9,6 +9,8 @@ const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 app.engine('ejs', ejsMate);
+const session = require('express-session');
+const flash = require('connect-flash');
 
 const Listing = require('./models/listing');
 const Review = require('./models/reviews');
@@ -17,6 +19,7 @@ const ExpressError = require('./utils/ExpressError');
 const {listingSchema,reviewSchema} = require('./schemaValidate');
 const listings = require('./routes/listing');
 const reviews = require('./routes/review');
+
 
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
@@ -36,13 +39,33 @@ main().then(() => {
     console.log(`connection failed ${err}`);
 });
 
+//connect mongodb
 async function main() {
     await mongoose.connect(MONGO_DB);
 }
 
+//express-session
+const sessionOptions = {
+    secret : "secretePass",
+    resave : false,
+    saveUninitialized:  true,
+    cookie : {
+        expires : Date.now() + 1000*60*60*24*7,
+        maxAge : 1000*60*60*24*7,
+        httpOnly : true
+    },
+};
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req,res,next)=>{
+    res.locals.success = req.flash('success');
+    next();
+});
+
 // Routes
 app.get("/", (req, res) => {
-    res.send("Home Page");
+    res.redirect("/listings");
 });
 
 //Use listing routes
@@ -52,7 +75,6 @@ app.use('/listings',listings)
 app.use('/listings/:id/reviews',reviews)
 
 //Express Error for all other routes
-
 app.all(/.*/, (req, res, next) => {
     console.log(`404 Error: ${req.method} ${req.originalUrl}`);
     next(new ExpressError("Page Not Found", 404));
@@ -60,12 +82,10 @@ app.all(/.*/, (req, res, next) => {
 
 
 // Error Handling Middleware
-
 app.use((err, req, res, next) => {
     const { status = 500, message = "Something went wrong" } = err;
     console.log(err);
     res.status(status).render("error.ejs", { err });
-
 });
 
 // Server Start
