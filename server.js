@@ -13,8 +13,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('./models/user');
 
+const User = require('./models/user');
 const ExpressError = require('./utils/ExpressError');
 const listingsRoute = require('./routes/listing');
 const reviewsRoute = require('./routes/review');
@@ -76,7 +76,6 @@ app.use((req,res,next)=>{
 
 //Use user routes
 app.use("/", userRoute);
-
 
 //Use listing routes
 app.use('/listings',listingsRoute)

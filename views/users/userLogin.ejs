@@ -1,0 +1,126 @@
+<%- layout('layouts/boilerplate') -%>
+
+<div class="row justify-content-center my-5">
+  <div class="col-lg-6 col-md-8 col-sm-10">
+    <div class="card shadow-sm p-4">
+      
+      <!-- Heading (Same Airbnb Gradient) -->
+      <h2 class="text-center mb-4 login-heading">
+        <i class="fa-solid fa-right-to-bracket me-2"></i> Login
+      </h2>
+
+      <!-- ALERT (same place as signup, optional) -->
+      <div id="alertBox" class="alert alert-danger d-none" role="alert"></div>
+
+      <!-- Login Form -->
+      <form method="POST" action="/login" class="needs-validation" novalidate>
+
+        <!-- Username -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+          <label for="username"><i class="fa-solid fa-user me-1"></i> Username</label>
+          <div class="invalid-feedback">Username is required.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-floating mb-4 position-relative">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+          <label for="password"><i class="fa-solid fa-lock me-1"></i> Password</label>
+
+          <!-- Show/Hide Password Button -->
+          <button type="button" id="togglePassword" class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2">
+            Show
+          </button>
+
+          <div class="invalid-feedback">Password is required.</div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-pink w-100 btn-lg shadow-sm">Login</button>
+
+        <div class="text-center mt-3">
+          <small class="text-muted">
+            Don't have an account?
+            <a href="/signup" class="text-danger text-decoration-none">Sign up</a>
+          </small>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- JS Validation + Password Toggle -->
+<script>
+(() => {
+  const form = document.querySelector('.needs-validation');
+  const toggle = document.getElementById('togglePassword');
+  const password = document.getElementById('password');
+
+  toggle.addEventListener('click', () => {
+    const type = password.type === 'password' ? 'text' : 'password';
+    password.type = type;
+    toggle.textContent = type === 'password' ? 'Show' : 'Hide';
+  });
+
+  // Bootstrap validation
+  form.addEventListener('submit', (e) => {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+})();
+</script>
+
+<style>
+/* Heading Same as Signup */
+.login-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #FF385C, #FF7F99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-heading::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #FF385C;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+/* Button */
+.btn-pink {
+  background-color: #FF385C;
+  color: #fff;
+  border: none;
+  transition: 0.3s ease;
+}
+.btn-pink:hover {
+  background-color: #e0314b;
+  transform: translateY(-2px);
+}
+
+/* Input focus */
+.form-floating > .form-control:focus {
+  border-color: #FF385C;
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.25);
+}
+
+/* Toggle password button */
+#togglePassword {
+  font-size: 0.9rem;
+  color: #FF385C;
+  border-color: #FF385C;
+}
+#togglePassword:hover {
+  background-color: #FF385C;
+  color: #fff;
+}
+</style>
