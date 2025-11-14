@@ -34,6 +34,7 @@ const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb";
 
 //function to connect to mongoDB
 main().then(() => {
+    
     console.log('mongoDB connected');
 }).catch((err) => {
     console.log(`connection failed ${err}`);
@@ -68,11 +69,13 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Flash middleware
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
+    res.locals.currentUser = req.user;
     next();
 });
+
 
 //Use user routes
 app.use("/", userRoute);
