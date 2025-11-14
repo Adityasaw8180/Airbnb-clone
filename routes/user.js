@@ -29,11 +29,27 @@ router.get('/', (req, res) => {
 });
 
 router.post('/login',passport.authenticate('local', {failureRedirect :'/', failureFlash : true}), wrapAsync(async (req, res) => {
-    req.flash('success', 'Welcome back!');
+    req.flash('success', `Welcome back! ${req.user.username}`);
     const redirectUrl = req.session.returnTo || '/listings';
     delete req.session.returnTo;
+    //const user = req.user;
     res.redirect(redirectUrl);
 }));
+
+router.get('/logout',(req,res)=>{
+    if(req.isAuthenticated()) {
+        req.logout((err) => {
+            if (err) {
+                return next(err);
+            }
+            req.flash('success', 'You logged out!');
+            res.redirect('/listings');
+        });
+    } else {
+        req.flash('error', 'You are not logged in!');
+        res.redirect('/');
+    }
+})
 
 
 module.exports = router;
