@@ -56,7 +56,7 @@
                 <p class="text-secondary lh-base">
                   <strong>Hosted by:</strong>
                   <i>
-                  <%= list.owner ? list.owner.username : "Unknown Owner" %>
+                    <%= list.owner ? list.owner.username : "Unknown Owner" %>
                   </i>
                 </p>
                 <p class="text-secondary lh-base">
@@ -65,18 +65,19 @@
               </div>
 
               <hr class="mt-auto">
+              <% if (currentUser && list.owner._id.equals(currentUser._id)) { %>
+                <div class="d-flex gap-3 flex-wrap pt-3">
+                  <a href="/listings/<%= list._id %>/edit" class="btn btn-primary fw-semibold flex-grow-1">
+                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                  </a>
+                  <form method="POST" action="/listings/<%= list._id %>/?_method=DELETE" class="flex-grow-1">
+                    <button type="submit" class="btn btn-danger w-100 fw-semibold">
+                      <i class="fa-solid fa-trash me-1"></i> Delete
+                    </button>
+                  </form>
+                </div>
 
-              <div class="d-flex gap-3 flex-wrap pt-3">
-                <a href="/listings/<%= list._id %>/edit" class="btn btn-primary fw-semibold flex-grow-1">
-                  <i class="fa-solid fa-pen-to-square me-1"></i> Edit
-                </a>
-                <form method="POST" action="/listings/<%= list._id %>/?_method=DELETE" class="flex-grow-1">
-                  <button type="submit" class="btn btn-danger w-100 fw-semibold">
-                    <i class="fa-solid fa-trash me-1"></i> Delete
-                  </button>
-                </form>
-              </div>
-
+              <% } %>
             </div>
           </div>
         </div>
@@ -148,7 +149,7 @@
                                 </span>
                                 <% } else { %>
                                   <span class="fw-semibold text-dark fs-6">
-                                    Anonymous user 
+                                    Anonymous user
                                   </span>
                                   <% } %>
 

@@ -19,6 +19,7 @@ const ExpressError = require('./utils/ExpressError');
 const listingsRoute = require('./routes/listing');
 const reviewsRoute = require('./routes/review');
 const userRoute = require('./routes/user');
+const { createSecureContext } = require('tls');
 
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
@@ -74,6 +75,7 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
     next();
+
 });
 
 

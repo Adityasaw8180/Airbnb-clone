@@ -25,7 +25,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
         req.flash('error', 'listing does not exist!');
         return res.redirect('/listings');
     }
-    console.log(list);
+    //console.log("owner :",list.owner);
     res.render("listings/show.ejs", { list });
 }));
 
@@ -35,7 +35,7 @@ router.post("/", validateListing, wrapAsync(async (req, res) => {
     newListing.owner = req.user._id;
     await newListing.save();
     req.flash('success', 'Created a new listing!');
-    console.log(newListing);
+    //console.log(newListing);
     res.redirect("/listings");
 }));
 
