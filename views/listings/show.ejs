@@ -54,6 +54,12 @@
               <div class="mb-4">
                 <h5 class="fw-semibold text-primary mb-2">About this listing</h5>
                 <p class="text-secondary lh-base">
+                  <strong>Hosted by:</strong>
+                  <i>
+                  <%= list.owner ? list.owner.username : "Unknown Owner" %>
+                  </i>
+                </p>
+                <p class="text-secondary lh-base">
                   <%= list.description %>
                 </p>
               </div>
@@ -136,7 +142,16 @@
                           <div class="d-flex justify-content-between align-items-center mb-3">
                             <div>
                               <i class="fa-solid fa-user-circle text-secondary me-2 fs-4"></i>
-                              <span class="fw-semibold text-dark fs-6">Anonymous User</span>
+                              <% if(currentUser) { %>
+                                <span class="fw-semibold text-dark fs-6">
+                                  <%= currentUser.username %>
+                                </span>
+                                <% } else { %>
+                                  <span class="fw-semibold text-dark fs-6">
+                                    Anonymous user 
+                                  </span>
+                                  <% } %>
+
                             </div>
                             <div>
                               <% for (let i=0; i < rev.rating; i++) { %>

@@ -3,6 +3,7 @@ const router = express.Router();
 const wrapAsync = require('../utils/wrapAsync');
 const Listing = require('../models/listing');
 const { validateListing, isLogin } = require('../middlewares.js');
+const e = require('connect-flash');
 
 
 // Index Route
@@ -19,18 +20,19 @@ router.get("/new",isLogin, (req, res) => {
 // Show Route
 router.get("/:id", wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const list = await Listing.findById(id).populate('reviews');
+    const list = await Listing.findById(id).populate('reviews').populate('owner');
     if(!list){
         req.flash('error', 'listing does not exist!');
         return res.redirect('/listings');
     }
-    // console.log(list);
+    console.log(list);
     res.render("listings/show.ejs", { list });
 }));
 
 // Create Route (POST)
 router.post("/", validateListing, wrapAsync(async (req, res) => {
     const newListing = new Listing(req.body.Listing);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash('success', 'Created a new listing!');
     console.log(newListing);

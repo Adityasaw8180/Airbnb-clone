@@ -6,6 +6,11 @@ const Listing = require('../models/listing');
 const Review = require('../models/reviews');
 const { isLogin , validateReviews} = require('../middlewares.js');
 
+//redirect url handler
+router.get("/", async (req, res) => {
+    const listing = await Listing.findById(req.params.id).populate("reviews");
+    res.render("listings/show.ejs",{ list : listing });
+});
 
 //Post Review Route
 router.post("/",isLogin, validateReviews, wrapAsync(async (req, res) => {
