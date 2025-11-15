@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const wrapAsync = require('../utils/wrapAsync');
 const Listing = require('../models/listing');
-const { validateListing, isLogin } = require('../middlewares.js');
+const { validateListing, isLogin , isOwner} = require('../middlewares.js');
 const e = require('connect-flash');
 
 
@@ -30,7 +30,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 }));
 
 // Create Route (POST)
-router.post("/", validateListing, wrapAsync(async (req, res) => {
+router.post("/",isLogin, validateListing, wrapAsync(async (req, res) => {
     const newListing = new Listing(req.body.Listing);
     newListing.owner = req.user._id;
     await newListing.save();
@@ -40,7 +40,7 @@ router.post("/", validateListing, wrapAsync(async (req, res) => {
 }));
 
 //Edit Route
-router.get("/:id/edit",isLogin, wrapAsync(async (req, res) => {
+router.get("/:id/edit",isLogin,isOwner, wrapAsync(async (req, res) => {
     const { id } = req.params;
     const list = await Listing.findById(id);
     if(!list){
@@ -51,8 +51,13 @@ router.get("/:id/edit",isLogin, wrapAsync(async (req, res) => {
 }));
 
 //Update Route
-router.put("/:id",isLogin, validateListing, wrapAsync(async (req, res) => {
+router.put("/:id",isLogin,isOwner ,validateListing, wrapAsync(async (req, res) => {
     const { id } = req.params;
+    const list = await Listing.findById(id);
+    if(!list){
+        req.flash('error', 'listing does not exist!');
+        return res.redirect('/listings');
+    }
     const updatedListing = await Listing.findByIdAndUpdate(id, req.body.Listing, { new: true });
     req.flash('success', 'Updated listing!');
     console.log(updatedListing);
@@ -60,9 +65,14 @@ router.put("/:id",isLogin, validateListing, wrapAsync(async (req, res) => {
 }));
 
 //Delete Route
-router.delete("/:id", isLogin,wrapAsync(async (req, res) => {
+router.delete("/:id",isLogin,isOwner,wrapAsync(async (req, res) => {
     const { id } = req.params;
-    let deletedList = await Listing.findByIdAndDelete(id);
+    const list = await Listing.findById(id);
+    if(!list){
+        req.flash('error', 'listing does not exist!');
+        return res.redirect('/listings');
+    }
+    await Listing.findByIdAndDelete(id);
     req.flash('success', 'listing Deleted!');
     res.redirect("/listings");
 }));
