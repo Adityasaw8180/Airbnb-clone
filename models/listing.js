@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { required } = require('../schemaValidate');
 const Schema = mongoose.Schema;
 const Review = require('./reviews.js');
 const listingSchema = new Schema({
@@ -43,7 +42,7 @@ const listingSchema = new Schema({
     owner :{
         type: Schema.Types.ObjectId,
         ref: 'User',
-    }
+    },
 
 });
 

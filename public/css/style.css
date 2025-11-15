@@ -1,22 +1,23 @@
 /* GLOBAL STYLES */
-body{
-    background-color: #f7f7f7;
-    font-family: 'Plus Jakarta Sans','sans-serif ' !important;
+body {
+  background-color: #f7f7f7;
+  font-family: 'Plus Jakarta Sans', 'sans-serif ' !important;
 }
 
 /* NAVBAR */
-.navbar{
-    height: 5rem;
-    background-color: #fff;
-    font-weight: 500;
+.navbar {
+  height: 5rem;
+  background-color: #fff;
+  font-weight: 500;
 }
 
-.fa-compass{
-    color : #fe424d;
-    font-size: 2rem;
+.fa-compass {
+  color: #fe424d;
+  font-size: 2rem;
 }
-.nav-link{
-    color: #222222 !important;
+
+.nav-link {
+  color: #222222 !important;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap");
@@ -41,7 +42,8 @@ body {
   background: var(--body-color);
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -49,96 +51,113 @@ html, body {
 }
 
 main {
-  flex: 1; /* Take up remaining space, pushing footer to the bottom */
+  flex: 1;
+  /* Take up remaining space, pushing footer to the bottom */
 }
 
 /* --- FOOTER ENHANCEMENTS --- */
 footer {
-    /* *** MODIFIED: Light Grey Background Color *** */
-    background-color: #f7f7f7; 
-    padding: 2rem 5%;
-    color: var(--first-color, #331E38);
+  /* *** MODIFIED: Light Grey Background Color *** */
+  background-color: #f7f7f7;
+  padding: 2rem 5%;
+  color: var(--first-color, #331E38);
 }
 
 /* Container for all footer content */
 .f-info {
-    text-align: left; /* Align content to the left */
-    height: auto;
-    background-color: transparent;
-    display: flex;
-    flex-direction: column; /* Stack everything vertically first */
-    gap: 1.5rem; /* Space between sections */
-    max-width: 1200px; /* Max width for content centering */
-    margin: 0 auto; /* Center the content */
-    padding: 0;
+  text-align: left;
+  /* Align content to the left */
+  height: auto;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  /* Stack everything vertically first */
+  gap: 1.5rem;
+  /* Space between sections */
+  max-width: 1200px;
+  /* Max width for content centering */
+  margin: 0 auto;
+  /* Center the content */
+  padding: 0;
 }
 
 /* Socials grouping and title */
 .f-socials-container h3 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 /* Container for copyright and policy links */
 .f-info-bottom {
-    display: flex;
-    flex-direction: column-reverse; /* Put links above copyright on small screens */
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Subtle separator line */
-    padding-top: 1.5rem;
-    margin-top: 0; /* Adjusted margin since it's inside f-info */
-    width: 100%;
-    gap: 1rem; /* Space between links and copyright */
+  display: flex;
+  flex-direction: column-reverse;
+  /* Put links above copyright on small screens */
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  /* Subtle separator line */
+  padding-top: 1.5rem;
+  margin-top: 0;
+  /* Adjusted margin since it's inside f-info */
+  width: 100%;
+  gap: 1rem;
+  /* Space between links and copyright */
 }
 
 /* Policy Links */
 .f-info-links {
-    display: flex;
-    flex-wrap: wrap; /* Allow links to wrap on very small screens */
-    justify-content: center;
-    width: 100%;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  /* Allow links to wrap on very small screens */
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
 }
 
 .f-info-links a {
-    text-decoration: none;
-    color: var(--first-color, #331E38);
-    font-size: 0.95rem;
-    white-space: nowrap; /* Prevent individual links from breaking */
+  text-decoration: none;
+  color: var(--first-color, #331E38);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  /* Prevent individual links from breaking */
 }
 
 .f-info-links a:hover {
-    text-decoration: underline;
-    color: #000;
+  text-decoration: underline;
+  color: #000;
 }
 
 /* Copyright text */
-.f-info-bottom > div:first-child { 
-    font-size: 0.95rem;
-    text-align: center;
+.f-info-bottom>div:first-child {
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 /* Media Query for larger screens (e.g., tablets and desktop) */
 @media (min-width: 768px) {
-    .f-info-bottom {
-        flex-direction: row; /* Layout links and copyright horizontally */
-        gap: 0; /* Reset gap, space-between handles it */
-    }
+  .f-info-bottom {
+    flex-direction: row;
+    /* Layout links and copyright horizontally */
+    gap: 0;
+    /* Reset gap, space-between handles it */
+  }
 
-    /* The copyright text */
-    .f-info-bottom > div:first-child { 
-        order: 1; /* Keep copyright on the left/start */
-        text-align: left;
-    }
-    
-    .f-info-links {
-        order: 2; /* Move links to the right/end */
-        justify-content: flex-end; /* Align links to the right */
-        width: auto;
-    }
+  /* The copyright text */
+  .f-info-bottom>div:first-child {
+    order: 1;
+    /* Keep copyright on the left/start */
+    text-align: left;
+  }
+
+  .f-info-links {
+    order: 2;
+    /* Move links to the right/end */
+    justify-content: flex-end;
+    /* Align links to the right */
+    width: auto;
+  }
 }
 
 
@@ -149,35 +168,44 @@ footer {
 }
 
 .f-socials-container .social_container {
-    justify-content: flex-start; /* Align icons left in the footer */
+  justify-content: flex-start;
+  /* Align icons left in the footer */
 }
 
 .social_content {
   position: relative;
-  padding: 0.2rem; /* Reduced padding for footer */
-  margin: 0 0.5rem; /* Reduced margin for footer */
+  padding: 0.2rem;
+  /* Reduced padding for footer */
+  margin: 0 0.5rem;
+  /* Reduced margin for footer */
   background: var(--first-color-light);
   border-radius: 1rem;
-  box-shadow: none; /* Removed heavy shadow */
-  border: 1px solid rgba(0, 0, 0, 0.1); /* Added subtle border */
+  box-shadow: none;
+  /* Removed heavy shadow */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* Added subtle border */
   cursor: pointer;
   transition: 0.3s;
 }
 
 .social_icon {
-  font-size: 1.5rem; /* Slightly smaller icon size for footer */
+  font-size: 1.5rem;
+  /* Slightly smaller icon size for footer */
   color: var(--first-color);
-  display: block; /* Ensure the icon is centered/takes space */
+  display: block;
+  /* Ensure the icon is centered/takes space */
 }
 
 .social_content a {
-    text-decoration: none; /* Remove underline from icon link */
+  text-decoration: none;
+  /* Remove underline from icon link */
 }
 
 /* Hover effects */
 .social_content:hover {
   background: var(--first-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Subtle lift on hover */
 }
 
 .social_content:hover .social_icon {
@@ -225,38 +253,38 @@ footer {
   opacity: 1;
   top: -3.25rem;
 }
+
 /* CARD */
 
-.card{
-    border: none !important;
-    margin-bottom: 2rem;
+.card {
+  border: none !important;
+  margin-bottom: 2rem;
 }
 
-.card-img-top{
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
 }
 
-.card-body{
-    padding: 0 !important;
+.card-body {
+  padding: 0 !important;
 }
 
-.card-text p{
-    font-weight: 400 !important;
+.card-text p {
+  font-weight: 400 !important;
 }
 
 
-.listing-link{
-    text-decoration: none;
+.listing-link {
+  text-decoration: none;
 }
 
-.card-img-overlay{
-    opacity: 0;
+.card-img-overlay {
+  opacity: 0;
 }
 
-.card-img-overlay:hover{
-    opacity: 0.2;
-    background-color:white;   
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
 }
-

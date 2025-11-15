@@ -35,7 +35,7 @@ const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb";
 
 //function to connect to mongoDB
 main().then(() => {
-    
+
     console.log('mongoDB connected');
 }).catch((err) => {
     console.log(`connection failed ${err}`);
@@ -48,13 +48,13 @@ async function main() {
 
 //express-session
 const sessionOptions = {
-    secret : "secretePass",
-    resave : false,
-    saveUninitialized:  true,
-    cookie : {
-        expires : Date.now() + 1000*60*60*24*7,
-        maxAge : 1000*60*60*24*7,
-        httpOnly : true
+    secret: "secretePass",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true
     },
 };
 
@@ -83,10 +83,10 @@ app.use((req, res, next) => {
 app.use("/", userRoute);
 
 //Use listing routes
-app.use('/listings',listingsRoute)
+app.use('/listings', listingsRoute)
 
 //Use review routes
-app.use('/listings/:id/reviews',reviewsRoute)
+app.use('/listings/:id/reviews', reviewsRoute)
 
 //Express Error for all other routes
 app.all(/.*/, (req, res, next) => {

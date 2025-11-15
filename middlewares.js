@@ -1,20 +1,21 @@
 const { listingSchema, reviewSchema } = require('./schemaValidate.js');
 const ExpressError = require('./utils/ExpressError');
 const Listing = require('./models/listing');
+const Review = require('./models/reviews');
 //vadate login 
-module.exports.isLogin = (req,res,next)=>{
+module.exports.isLogin = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.redirectUrl = req.originalUrl;
         req.flash('error', 'You must be signed in first!');
-        return res.redirect('/'); 
+        return res.redirect('/');
     }
-   next();
+    next();
 }
 
 module.exports.redirectedUrl = (req, res, next) => {
     //console.log(req.session.redirectUrl);
     if (req.session.redirectUrl) {
-         res.locals.redirectUrl = req.session.redirectUrl;
+        res.locals.redirectUrl = req.session.redirectUrl;
     }
     next();
 };
@@ -26,23 +27,23 @@ module.exports.validateListing = (req, res, next) => {
     const { error } = listingSchema.validate(req.body.Listing);
     if (error) {
         throw new ExpressError(error.details.map(el => el.message).join(","), 400);
-    } 
+    }
     next();
 };
 
 //validate review middleware
 module.exports.validateReviews = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body.Review);
-   //console.log(error);
+    //console.log(error);
     if (error) {
-        throw new ExpressError("Invalid Review Data", 400);    
+        throw new ExpressError("Invalid Review Data", 400);
     } else {
         next();
     }
 };
 
 module.exports.isOwner = async (req, res, next) => {
-    if (!req.user) {    
+    if (!req.user) {
         req.flash("error", "You must be logged in!");
         return res.redirect("/");
     }
@@ -50,8 +51,29 @@ module.exports.isOwner = async (req, res, next) => {
     const listing = await Listing.findById(id);
 
     if (!listing.owner.equals(req.user._id)) {
-        req.flash("error", "You do not have permission!");
+        req.flash("error", "You are not the owner!");
         return res.redirect(`/listings/${id}`);
+    }
+
+    next();
+};
+
+module.exports.isAuthor = async (req, res, next) => {
+    if (!req.user) {
+        req.flash("error", "You must be logged in!");
+        return res.redirect("/");
+    }
+    const { reviewId } = req.params;    
+    const review = await Review.findById(reviewId);
+
+    if (!review) {
+        req.flash("error", "Review not found!");
+        return res.redirect(`/listings/${req.params.id}`);
+    }
+
+    if (!review.author.equals(req.user._id)) {
+        req.flash("error", "You are not the Author!");
+        return res.redirect(`/listings/${req.params.id}`);
     }
 
     next();
