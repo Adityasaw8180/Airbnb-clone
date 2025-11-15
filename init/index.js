@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const initData = require('./data')
 const Listing = require("../models/listing");
 const Review = require("../models/reviews");
-
+const User = require("../models/user");
 const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb"
 
 main().then(() => {
@@ -20,6 +20,7 @@ const initDB = async ()=>{
     await Listing.deleteMany({});
     await Review.deleteMany({});
     await Listing.insertMany(initData.data);
+    await User.deleteMany({});
     console.log('Data Initialized successfully')
 }
 
