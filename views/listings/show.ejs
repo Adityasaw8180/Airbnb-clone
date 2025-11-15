@@ -1,227 +1,226 @@
 <%- layout('layouts/boilerplate') -%>
 
-<style>
-  .review-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .review-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  }
-</style>
+  <style>
+    .review-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-<body class="bg-light">
-  <div class="container py-5">
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 
-    <!-- Listing Main Section -->
-    <div class="row g-4">
+  <body class="bg-light">
+    <div class="container py-5">
 
-      <!-- LEFT: Images -->
-      <div class="col-lg-7">
-        <img src="<%= list.image.url %>" 
-             class="img-fluid rounded-4 w-100 mb-3"
-             style="max-height: 500px; object-fit: cover;" 
-             alt="Main Image">
+      <div class="row g-4">
 
-        <% if (list.images && list.images.length > 0) { %>
-        <div class="d-flex gap-2 flex-wrap">
-          <% list.images.forEach(img => { %>
-            <img src="<%= img.url %>" 
-                 class="img-thumbnail rounded-3"
-                 style="width: 30%; height: 150px; object-fit: cover;">
-          <% }) %>
-        </div>
-        <% } %>
-      </div>
+        <div class="col-lg-7">
+          <img src="<%= list.image.url %>" class="img-fluid rounded-4 w-100 mb-3"
+            style="max-height: 500px; object-fit: cover;">
 
-      <!-- RIGHT: Details -->
-      <div class="col-lg-5">
-        <div class="card shadow-sm border-0 h-100">
-          <div class="card-body p-4">
-
-            <!-- Title + Price -->
-            <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
-              <h2 class="fw-bold fs-3 text-dark"><%= list.title %></h2>
-              <span class="fs-4 fw-bold text-danger">
-                <i class="fa-solid fa-indian-rupee-sign small me-1"></i>
-                <%= list.price.toLocaleString("en-IN") %>
-              </span>
-            </div>
-
-            <!-- Location -->
-            <div class="mb-4 text-muted border-bottom pb-3">
-              <i class="fa-solid fa-location-dot me-2 text-primary"></i>
-              <span class="fw-semibold"><%= list.location %></span>, <%= list.country %>
-            </div>
-
-            <!-- About -->
-            <div class="mb-4">
-              <h5 class="fw-semibold text-primary mb-2">About this listing</h5>
-
-              <p class="text-secondary lh-base">
-                <strong>Hosted by:</strong>
-                <i><%= list.owner?.username || "Unknown Owner" %></i>
-              </p>
-
-              <p class="text-secondary lh-base"><%= list.description %></p>
-            </div>
-
-            <hr>
-
-            <!-- Edit/Delete Buttons (Only for owner) -->
-            <% if (currentUser && list.owner && list.owner._id.equals(currentUser._id)) { %>
-            <div class="d-flex gap-3 flex-wrap pt-3">
-              <a href="/listings/<%= list._id %>/edit" class="btn btn-primary fw-semibold flex-grow-1">
-                <i class="fa-solid fa-pen-to-square me-1"></i> Edit
-              </a>
-
-              <form method="POST" 
-                    action="/listings/<%= list._id %>?_method=DELETE" 
-                    class="flex-grow-1">
-                <button type="submit" class="btn btn-danger w-100 fw-semibold">
-                  <i class="fa-solid fa-trash me-1"></i> Delete
-                </button>
-              </form>
+          <% if (list.images && list.images.length> 0) { %>
+            <div class="d-flex gap-2 flex-wrap">
+              <% list.images.forEach(img=> { %>
+                <img src="<%= img.url %>" class="img-thumbnail rounded-3"
+                  style="width: 30%; height: 150px; object-fit: cover;">
+                <% }) %>
             </div>
             <% } %>
+        </div>
 
+        <div class="col-lg-5">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-4">
+
+              <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
+                <h2 class="fw-bold fs-3 text-dark">
+                  <%= list.title %>
+                </h2>
+                <span class="fs-4 fw-bold text-danger">
+                  <i class="fa-solid fa-indian-rupee-sign small me-1"></i>
+                  <%= list.price.toLocaleString("en-IN") %>
+                </span>
+              </div>
+
+              <div class="mb-4 text-muted border-bottom pb-3">
+                <i class="fa-solid fa-location-dot me-2 text-primary"></i>
+                <span class="fw-semibold">
+                  <%= list.location %>
+                </span>,
+                <%= list.country %>
+              </div>
+
+              <div class="mb-4">
+                <h5 class="fw-semibold text-primary mb-2">About this listing</h5>
+
+                <p class="text-secondary">
+                  <strong>Hosted by:</strong>
+                  <i>
+                    <%= list.owner?.username || "Unknown Owner" %>
+                  </i>
+                </p>
+
+                <p class="text-secondary">
+                  <%= list.description %>
+                </p>
+              </div>
+
+              <hr>
+
+              <% if (currentUser && list.owner && list.owner._id.equals(currentUser._id)) { %>
+                <div class="d-flex gap-3 flex-wrap pt-3">
+                  <a href="/listings/<%= list._id %>/edit" class="btn btn-primary flex-grow-1">
+                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                  </a>
+
+                  <form method="POST" action="/listings/<%= list._id %>?_method=DELETE" class="flex-grow-1">
+                    <button type="submit" class="btn btn-danger w-100">
+                      <i class="fa-solid fa-trash me-1"></i> Delete
+                    </button>
+                  </form>
+                </div>
+                <% } %>
+
+            </div>
           </div>
         </div>
+
       </div>
 
-    </div>
+      <div class="row mt-5">
+        <div class="col-lg-10 mx-auto">
 
-    <!-- Reviews Section — Only if logged in -->
-    <% if (currentUser) { %>
+          <% if (currentUser) { %>
 
-    <div class="row mt-5">
-      <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm rounded-4 mb-5">
+              <div class="card-body p-4">
 
-        <div class="card border-0 shadow-sm rounded-4">
-          <div class="card-body p-4">
+                <h4 class="fw-bold text-primary mb-4 text-center">
+                  <i class="fa-solid fa-star text-warning me-2"></i>Leave a Review
+                </h4>
 
-            <!-- Leave Review -->
-            <h4 class="fw-bold text-primary mb-4 text-center">
-              <i class="fa-solid fa-star text-warning me-2"></i>Leave a Review
-            </h4>
+                <form action="/listings/<%= list._id %>/reviews" method="POST">
 
-            <form class="needs-validation"
-                  action="/listings/<%= list._id %>/reviews"
-                  method="POST" novalidate>
+                  <div class="row g-4 align-items-stretch">
 
-              <div class="row g-4 align-items-stretch">
+                    <div class="col-md-4 d-flex flex-column justify-content-center border-end">
+                      <label class="form-label fw-semibold">Your Rating (1–5)</label>
+                      <input type="range" class="form-range" min="1" max="5" step="1" value="3" name="review[rating]"
+                        required oninput="ratingValue.textContent = this.value">
 
-                <!-- Rating -->
-                <div class="col-md-4 d-flex flex-column justify-content-center border-end">
-                  <label class="form-label fw-semibold">Your Rating (1–5)</label>
-                  <input type="range" class="form-range" id="ratingRange"
-                         min="1" max="5" step="1" value="3"
-                         name="review[rating]"
-                         required
-                         oninput="ratingValue.textContent = this.value">
-
-                  <p class="text-muted mb-0">
-                    Rating: <span id="ratingValue" class="fw-bold text-dark">3</span> / 5
-                  </p>
-                </div>
-
-                <!-- Comment -->
-                <div class="col-md-8">
-                  <div class="mb-3">
-                    <label class="form-label fw-semibold">Your Comment</label>
-                    <textarea class="form-control" rows="4"
-                              name="review[comment]"
-                              placeholder="Write your thoughts..."
-                              required></textarea>
-                  </div>
-
-                  <button type="submit" class="btn btn-success w-100 fw-semibold">
-                    <i class="fa-solid fa-paper-plane me-1"></i> Submit Review
-                  </button>
-                </div>
-
-              </div>
-            </form>
-
-            <hr class="my-5">
-
-            <!-- Review List -->
-            <h4 class="fw-bold text-primary text-center mb-4">
-              <i class="fa-solid fa-comments me-2 text-warning"></i> What People Say
-            </h4>
-
-            <% if (list.reviews.length > 0) { %>
-            <div class="row g-4">
-
-              <% list.reviews.forEach(rev => { %>
-              <div class="col-md-6">
-                <div class="card shadow-sm border-0 h-100 rounded-4 review-card">
-                  <div class="card-body p-4">
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-
-                      <!-- Author -->
-                      <div>
-                        <i class="fa-solid fa-user-circle text-secondary me-2 fs-4"></i>
-                        <span class="fw-semibold">
-                          <%= rev.author?.username || "Anonymous" %>
-                        </span>
-                      </div>
-
-                      <!-- Stars -->
-                      <div>
-                        <% for (let i = 0; i < rev.rating; i++) { %>
-                          <i class="fa-solid fa-star text-warning"></i>
-                        <% } %>
-                        <% for (let i = rev.rating; i < 5; i++) { %>
-                          <i class="fa-regular fa-star text-muted"></i>
-                        <% } %>
-                      </div>
-
+                      <p class="text-muted mb-0">
+                        Rating: <span id="ratingValue" class="fw-bold text-dark">3</span> / 5
+                      </p>
                     </div>
 
-                    <!-- Review Text -->
-                    <p class="text-secondary mb-3 fst-italic">"<%= rev.comment %>"</p>
+                    <div class="col-md-8">
+                      <label class="form-label fw-semibold">Your Comment</label>
+                      <textarea class="form-control" rows="4" name="review[comment]"
+                        placeholder="Write your thoughts..." required></textarea>
 
-                    <div class="d-flex justify-content-between align-items-center">
-                      <small class="text-muted">
-                        Posted on <%= rev.createdAt?.toDateString() || "Recently" %>
-                      </small>
-
-                      <!-- Delete review only for author -->
-                      <% if (currentUser && rev.author && rev.author._id.equals(currentUser._id)) { %>
-                      <form action="/listings/<%= list._id %>/reviews/<%= rev._id %>?_method=DELETE"
-                            method="POST">
-                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                          <i class="fa-solid fa-trash"></i> Delete
-                        </button>
-                      </form>
-                      <% } %>
-
+                      <button type="submit" class="btn btn-success w-100 mt-3">
+                        <i class="fa-solid fa-paper-plane me-1"></i> Submit Review
+                      </button>
                     </div>
 
                   </div>
-                </div>
-              </div>
-              <% }) %>
 
+                </form>
+
+              </div>
             </div>
 
             <% } else { %>
-            <p class="text-center text-muted fst-italic">
-              No reviews yet. Be the first to share your experience!
-            </p>
-            <% } %>
 
-          </div>
+              <div class="d-flex justify-content-center">
+                <div class="px-4 py-3 rounded-4 shadow-sm bg-white border text-center" style="max-width: 450px;">
+                  <i class="fa-solid fa-lock text-danger me-2"></i>
+                  <span class="text-muted">
+                    Please
+                    <a href="/" class="fw-bold text-decoration-none text-danger">
+                      login
+                    </a>
+                    to leave a review.
+                  </span>
+                </div>
+              </div>
+              <br>
+
+
+              <% } %>
+                <h4 class="fw-bold text-primary text-center mb-4">
+                  <i class="fa-solid fa-comments me-2 text-warning"></i> What People Say
+                </h4>
+
+                <% if (list.reviews.length> 0) { %>
+
+                  <div class="row g-4">
+                    <% list.reviews.forEach(rev=> { %>
+
+                      <div class="col-md-6">
+                        <div class="card shadow-sm border-0 h-100 rounded-4 review-card">
+                          <div class="card-body p-4">
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                              <div>
+                                <i class="fa-solid fa-user-circle text-secondary me-2 fs-4"></i>
+                                <span class="fw-semibold">
+                                  <%= rev.author?.username || "Anonymous" %>
+                                </span>
+                              </div>
+
+                              <div>
+                                <% for (let i=0; i < rev.rating; i++) { %>
+                                  <i class="fa-solid fa-star text-warning"></i>
+                                  <% } %>
+                                    <% for (let i=rev.rating; i < 5; i++) { %>
+                                      <i class="fa-regular fa-star text-muted"></i>
+                                      <% } %>
+                              </div>
+
+                            </div>
+
+                            <p class="text-secondary mb-3 fst-italic">
+                              "<%= rev.comment %>"
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                              <small class="text-muted">
+                                Posted on <%= rev.createdAt?.toDateString() %>
+                              </small>
+
+                              <% if (currentUser && rev.author && rev.author._id.equals(currentUser._id)) { %>
+                                <form action="/listings/<%= list._id %>/reviews/<%= rev._id %>?_method=DELETE"
+                                  method="POST">
+                                  <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                  </button>
+                                </form>
+                                <% } %>
+
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <% }) %>
+                  </div>
+
+                  <% } else { %>
+
+                    <p class="text-center text-muted fst-italic">No reviews yet.</p>
+
+                    <% } %>
+
+
         </div>
-
       </div>
+
     </div>
 
-    <% } %>
-
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>

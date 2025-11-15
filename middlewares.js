@@ -63,12 +63,12 @@ module.exports.isAuthor = async (req, res, next) => {
         req.flash("error", "You must be logged in!");
         return res.redirect("/");
     }
-    const { reviewId } = req.params;    
+    const {id, reviewId } = req.params;    
     const review = await Review.findById(reviewId);
 
     if (!review) {
         req.flash("error", "Review not found!");
-        return res.redirect(`/listings/${req.params.id}`);
+        return res.redirect(`/listings/${id}`);
     }
 
     if (!review.author.equals(req.user._id)) {
