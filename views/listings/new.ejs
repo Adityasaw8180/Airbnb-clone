@@ -1,77 +1,78 @@
 <%- layout('layouts/boilerplate') -%>
 
-  <style>
-    body {
-      background-color: #f7f7f7;
-      /* Airbnb light gray */
-    }
-
-    .container {
-      max-width: 600px;
-      margin-top: 50px;
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-weight: 600;
-      color: #FF385C;
-      /* Airbnb pink */
-    }
-
-    .form-label {
-      font-weight: 500;
-    }
-
-    .btn-dark {
-      background-color: #FF385C;
-      border: none;
-      transition: 0.3s;
-    }
-
-    .btn-dark:hover {
-      background-color: #e0314b;
-    }
-  </style>
+<style>
+  body {
+    background-color: #f7f7f7;
+  }
+  .container {
+    max-width: 600px;
+    margin-top: 50px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #FF385C;
+  }
+  .form-label {
+    font-weight: 500;
+  }
+  .btn-dark {
+    background-color: #FF385C;
+    border: none;
+    transition: 0.3s;
+  }
+  .btn-dark:hover {
+    background-color: #e0314b;
+  }
+</style>
 </head>
 
 <body>
   <div class="container">
     <h2><i class="fa-solid fa-plus"></i> Create New Listing</h2>
-    <form method="POST" action="/listings">
+
+    <!-- ⭐ Bootstrap Validation Applied -->
+    <form method="POST" action="/listings" enctype="multipart/form-data" class="needs-validation" novalidate>
       <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" name="Listing[title]" placeholder="Enter title" class="form-control" required>
+        <label class="form-label">Title</label>
+        <input type="text" name="Listing[title]" class="form-control" required>
+        <div class="invalid-feedback">Please enter a title.</div>
+        <div class="valid-feedback">Title looks good.</div>
       </div>
 
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea name="Listing[description]" placeholder="Enter description" class="form-control" rows="3"
-          required></textarea>
+        <label class="form-label">Description</label>
+        <textarea name="Listing[description]" class="form-control" rows="3" required></textarea>
+        <div class="invalid-feedback">Description is required.</div>
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Image Link</label>
-        <input type="url" name="Listing[image][url]" placeholder="Enter URL/Link" class="form-control" >
+        <label class="form-label">Upload Image</label>
+        <input type="file" name="image" class="form-control" required>
+        <div class="invalid-feedback">Please upload an image.</div>
       </div>
 
       <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" name="Listing[price]" placeholder="Enter price" class="form-control" required>
+        <label class="form-label">Price</label>
+        <input type="number" name="Listing[price]" class="form-control" required>
+        <div class="invalid-feedback">Please enter valid price.</div>
       </div>
 
       <div class="mb-3">
-        <label for="location" class="form-label">Location</label>
-        <input type="text" name="Listing[location]" placeholder="Enter location" class="form-control" required>
+        <label class="form-label">Location</label>
+        <input type="text" name="Listing[location]" class="form-control" required>
+        <div class="invalid-feedback">Location cannot be empty.</div>
       </div>
 
       <div class="mb-3">
-        <label for="country" class="form-label">Country</label>
-        <input type="text" name="Listing[country]" placeholder="Enter country" class="form-control" required>
+        <label class="form-label">Country</label>
+        <input type="text" name="Listing[country]" class="form-control" required>
+        <div class="invalid-feedback">Country is required.</div>
       </div>
 
       <button type="submit" class="btn btn-dark w-100">Submit</button>

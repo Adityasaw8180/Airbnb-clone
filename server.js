@@ -2,7 +2,9 @@
 const express = require('express');
 const app = express();
 
-const PORT = 8080;
+if(process.env.NODE_ENV !== 'production'){
+   require('dotenv').config();
+}
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -19,7 +21,7 @@ const ExpressError = require('./utils/ExpressError');
 const listingsRoute = require('./routes/listing');
 const reviewsRoute = require('./routes/review');
 const userRoute = require('./routes/user');
-const { createSecureContext } = require('tls');
+
 
 // Middleware (only once)
 app.use(express.urlencoded({ extended: true }));
@@ -101,6 +103,8 @@ app.use((err, req, res, next) => {
     console.log(err);
     res.status(status).render("error.ejs", { err });
 });
+
+const PORT = process.env.PORT || 8080;
 
 // Server Start
 app.listen(PORT, () => {

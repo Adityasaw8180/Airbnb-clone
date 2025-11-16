@@ -1,48 +1,83 @@
 <%- layout('layouts/boilerplate') -%>
 
 <body class="bg-light">
+
   <div class="container py-5">
+
     <h2 class="text-center mb-4">
       <i class="fa-solid fa-pen-to-square me-2"></i> Edit Listing
     </h2>
 
-    <form method="POST" action="/listings/<%=list._id%>/?_method=PUT" class="mx-auto" style="max-width: 600px;">
+    <form method="POST"
+          action="/listings/<%= list._id %>?_method=PUT"
+          enctype="multipart/form-data"
+          class="mx-auto"
+          style="max-width: 650px;">
 
-      <!-- Image -->
-      <div class="form-floating mb-3">
-        <input type="text" name="Listing[image][url]" value="<%=list.image.url%>" class="form-control" id="image"
-          placeholder="Image URL" required>
-        <label for="image"><i class="fa-solid fa-image me-2"></i> Image URL</label>
+      <!-- Image Section -->
+      <div class="mb-4 text-center">
+        <label class="form-label fw-semibold d-block">
+          <i class="fa-solid fa-image me-2"></i> Current Image
+        </label>
+
+        <img src="<%= list.image.url %>"
+             class="img-fluid rounded shadow-sm"
+             style="max-height: 220px; object-fit: cover; border-radius: 10px;">
+
+        <label class="form-label mt-3 fw-semibold">
+          Upload New Image (optional)
+        </label>
+        <input type="file" name="image" class="form-control mt-1">
       </div>
 
       <!-- Title -->
       <div class="form-floating mb-3">
-        <input type="text" name="Listing[title]" value="<%=list.title%>" class="form-control" id="title"
-          placeholder="Title" required>
+        <input type="text"
+               name="Listing[title]"
+               value="<%= list.title %>"
+               class="form-control"
+               id="title"
+               placeholder="Title"
+               required>
         <label for="title"><i class="fa-solid fa-heading me-2"></i> Title</label>
       </div>
 
       <!-- Description -->
       <div class="form-floating mb-3">
-        <textarea name="Listing[description]" class="form-control" id="description" style="height: 120px"
-          placeholder="Description" required><%=list.description%></textarea>
+        <textarea name="Listing[description]"
+                  class="form-control"
+                  id="description"
+                  style="height: 130px;"
+                  placeholder="Description"
+                  required><%= list.description %></textarea>
         <label for="description"><i class="fa-solid fa-align-left me-2"></i> Description</label>
       </div>
 
       <!-- Price -->
       <div class="form-floating mb-3">
-        <input type="number" name="Listing[price]" value="<%=list.price%>" class="form-control" id="price"
-          placeholder="Price" required>
+        <input type="number"
+               name="Listing[price]"
+               value="<%= list.price %>"
+               class="form-control"
+               id="price"
+               placeholder="Price"
+               required>
         <label for="price"><i class="fa-solid fa-indian-rupee-sign me-2"></i> Price</label>
       </div>
 
-      <!-- Location + Country side by side -->
+      <!-- Location + Country -->
       <div class="row g-3">
+
         <!-- Location -->
         <div class="col-md-6">
           <div class="form-floating">
-            <input type="text" name="Listing[location]" class="form-control" id="location" value="<%=list.location%>"
-              placeholder="Location" required>
+            <input type="text"
+                   name="Listing[location]"
+                   class="form-control"
+                   id="location"
+                   value="<%= list.location %>"
+                   placeholder="Location"
+                   required>
             <label for="location"><i class="fa-solid fa-location-dot me-2"></i> Location</label>
           </div>
         </div>
@@ -50,24 +85,33 @@
         <!-- Country -->
         <div class="col-md-6">
           <div class="form-floating">
-            <input type="text" name="Listing[country]" class="form-control" id="country" value="<%=list.country%>"
-              placeholder="Country" required>
+            <input type="text"
+                   name="Listing[country]"
+                   class="form-control"
+                   id="country"
+                   value="<%= list.country %>"
+                   placeholder="Country"
+                   required>
             <label for="country"><i class="fa-solid fa-flag me-2"></i> Country</label>
           </div>
         </div>
+
       </div>
 
-      <!-- Submit -->
+      <!-- Submit Button -->
       <div class="d-grid mt-4">
         <button type="submit" class="btn btn-dark btn-lg">
           <i class="fa-solid fa-check me-2"></i> Save Changes
         </button>
       </div>
+
     </form>
+
   </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+
 </body>

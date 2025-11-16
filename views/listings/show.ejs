@@ -20,14 +20,6 @@
           <img src="<%= list.image.url %>" class="img-fluid rounded-4 w-100 mb-3"
             style="max-height: 500px; object-fit: cover;">
 
-          <% if (list.images && list.images.length> 0) { %>
-            <div class="d-flex gap-2 flex-wrap">
-              <% list.images.forEach(img=> { %>
-                <img src="<%= img.url %>" class="img-thumbnail rounded-3"
-                  style="width: 30%; height: 150px; object-fit: cover;">
-                <% }) %>
-            </div>
-            <% } %>
         </div>
 
         <div class="col-lg-5">
