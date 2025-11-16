@@ -4,6 +4,10 @@ const Listing = require('../models/listing');
 module.exports.createReview = async (req, res) => {
   const { id } = req.params;
   const list = await Listing.findById(id);
+  if(req.body.review.comment.trim().length === 0){
+    req.flash('error', 'Review cannot be empty!');
+    return res.redirect(`/listings/${id}`);
+  }
   console.log(req.body.review);
   const newReview = new Review(req.body.review);
   newReview.author = req.user._id;
