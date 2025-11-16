@@ -6,8 +6,9 @@ const { redirectedUrl } = require('../middlewares.js');
 const users = require('../controllers/user');
 
 // SIGNUP ROUTES
-router.get('/signup', users.renderSignup);
-router.post('/signup', wrapAsync(users.signup));
+router.route('/signup')
+    .get(users.renderSignup)
+    .post(wrapAsync(users.signup));
 
 // LOGIN ROUTES
 router.get('/', users.renderLogin);
