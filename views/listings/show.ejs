@@ -205,21 +205,21 @@
 
                     <% } %>
 
-                      <!-- MAP SECTION -->
-                      </div>
-                      <div class="row mt-5">
-                        <div class="col-lg-10 mx-auto">
-                          <h3 class="fw-bold text-primary mb-4 text-center">
-                            <i class="fa-solid fa-map-location-dot me-2"></i> Location on Map
-                          </h3>
-                          <div id="map" class="shadow-sm"></div>
-                        </div>
-                      <div class="w-100 d-flex justify-content-center my-5">
-                        <iframe width="80%" height="500" style="border-radius: 1rem; border:0;" loading="lazy"
-                          allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-                          src="https://www.google.com/maps?&q=<%= encodeURIComponent(list.location + ',' + list.country) %>&output=embed&z=15">
-                        </iframe>
-                      </div>
+        <!-- MAP SECTION -->
+        </div>
+        <div class="row mt-5">
+          <div class="col-lg-10 mx-auto">
+            <h3 class="fw-bold text-primary mb-4 text-center">
+              <i class="fa-solid fa-map-location-dot me-2"></i> Location on Map
+            </h3>
+            <div id="map" class="shadow-sm"></div>
+          </div>
+          <div class="w-100 d-flex justify-content-center my-5">
+            <iframe width="80%" height="500" style="border-radius: 1rem; border:0;" loading="lazy" allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?&q=<%= encodeURIComponent(list.location + ',' + list.country) %>&output=embed&z=15">
+            </iframe>
+          </div>
 
         </div>
       </div>
