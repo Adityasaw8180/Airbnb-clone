@@ -21,7 +21,7 @@ module.exports.show = async (req, res) => {
     res.render("listings/show.ejs", { list });
 };
 
-module.exports.create =async (req, res) => {
+module.exports.create = async (req, res) => {
     const newListing = new Listing(req.body.Listing);
     newListing.owner = req.user._id;
     await newListing.save();
@@ -37,7 +37,13 @@ module.exports.edit = async (req, res) => {
         req.flash('error', 'listing does not exist!');
         return res.redirect('/listings');
     }
-    res.render("listings/edit.ejs", { list });
+    let originalUrl = list.image.url;
+    originalUrl = originalUrl.replace(
+        "/upload/",
+        "/upload/w_400,c_fill,q_auto:low,e_blur:200/"
+    );
+    console.log(originalUrl);
+    res.render("listings/edit.ejs", { list, originalUrl });
 };
 
 module.exports.update = async (req, res) => {
