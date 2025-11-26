@@ -2,7 +2,8 @@ const { listingSchema, reviewSchema } = require('./schemaValidate.js');
 const ExpressError = require('./utils/ExpressError');
 const Listing = require('./models/listing');
 const Review = require('./models/reviews');
-//vadate login 
+
+//validate login 
 module.exports.isLogin = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.redirectUrl = req.originalUrl;
@@ -54,7 +55,6 @@ module.exports.isOwner = async (req, res, next) => {
         req.flash("error", "You are not the owner!");
         return res.redirect(`/listings/${id}`);
     }
-
     next();
 };
 
@@ -75,6 +75,5 @@ module.exports.isAuthor = async (req, res, next) => {
         req.flash("error", "You are not the Author!");
         return res.redirect(`/listings/${req.params.id}`);
     }
-
     next();
 };
