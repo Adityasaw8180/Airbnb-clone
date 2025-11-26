@@ -6,203 +6,215 @@
 ![EJS](https://img.shields.io/badge/EJS-000000?logo=EJS&logoColor=white)
 ![Passport.js](https://img.shields.io/badge/Passport.js-34E1B6?logo=passport.js&logoColor=white)
 
-
-A full-stack clone of the Airbnb platform built using Node.js, Express, MongoDB, and **EJS** templating to replicate its core features and provide a seamless user experience.
+A full-stack clone of the **Airbnb platform**, built using Node.js, Express, MongoDB, and EJS templating.
 
 ---
 
-📖 Description
+## 📖 Description
 
-The Airbnb Clone project is a full-stack web application built using Node.js, Express, MongoDB, and **EJS** templating. It replicates the core functionalities of the Airbnb platform — including user authentication, listing management, reviews, and filtering — with a clean, responsive, and intuitive interface.
+The **Airbnb Clone** is a full-stack web application that replicates essential features of Airbnb.  
+It follows the **MVC architecture**, uses **Cloudinary** for image uploads, **Passport.js** for authentication, and **EJS** for server-side rendering.
 
-This Airbnb Clone replicates core features of the original **Airbnb platform**.
-The project follows the MVC architecture, features robust authentication using Passport.js, secure image uploading using Cloudinary, and dynamic server-side rendering using EJS templates.
+This project is perfect for learning:
 
-This project showcases server-side rendering using **EJS**, combined with Express.js backend logic and MongoDB. It integrates Passport.js for authentication and Cloudinary for image storage, offering a production-ready structure for scalable apps.
+- Backend structure (routes, controllers, middleware)
+- Authentication & session management
+- Database modeling with Mongoose
+- REST API development
+- Cloudinary file uploads
+- Data validation & error handling
+- EJS templating
 
-The Airbnb Clone demonstrates **MVC** architecture, routing, middleware handling, and secure authentication.
+---
 
-This project is ideal for learning:
-    1.Backend structures (routes, controllers, middleware)
+## ✨ Features
 
-    2.Server-side rendering with EJS
+### 🔐 User Authentication
+- Register & Login using Passport.js  
+- Secure password hashing  
+- Session-based authentication  
 
-    3.Database modeling with Mongoose
+### 🏡 Listing Management
+- Create / View / Edit / Delete listings  
+- Add price, location, description  
+- Upload multiple images (Cloudinary)  
 
-    4.Authentication & session management
+### ⭐ Reviews System
+- Add & delete reviews  
+- Ratings + comments  
+- Linked with user & listing models  
 
-    5.Data validation & error handling
+### 🖼️ Image Upload
+- Cloudinary + Multer  
+- Secure and optimized image handling  
 
-    6.Cloudinary file uploads
+### 🎯 Filtering & Categories
+Filter by:
+- Category  
+- Price  
+- Location  
+- Amenities  
 
-    7.RESTful APIs
+### ⚠️ Error Handling
+- Custom error handler (ExpressError)
+- wrapAsync utility to eliminate try–catch blocks
 
-✨ Features
+### 💻 Responsive UI
+- Modular EJS templates (Navbar, Footer, Flash messages)
+- Modern, clean UI using custom CSS
 
-User Authentication –
-    1.Register & Login using Passport.js
-    2.Secure password hashing
-    3.Session-based authentication with Express Sessions
+---
 
-Listing Management – 
-    1.Create / View / Edit / Delete Listings
-    2.Add price, location, coordinates, description
-    3.Upload multiple images (Cloudinary integration)
-
-Reviews System – 
-    1.Add & delete reviews with rating + comments
-    2.Linked with user & listing models
-
-Image Upload – 
-    1.Cloudinary image storage
-    2.Multer middleware integration
-
-Filtering & Categories –
-    -Filter listings by:
-        1.Category
-        2.Price
-        3.Amenities
-        4.Location
-
-Error Handling –
-    1.Centralized custom error handler (ExpressError)
-    2.Async wrapper to reduce try–catch (wrapAsync.js)
-
-Responsive UI –
-    -Modular EJS templates for:
-        1.Navbar
-        2.Footer
-        3.Flash messages
-
-    -Clean & responsive CSS
-
-Data Validation – 
-    1.Ensures consistent and valid user input using schema-based validation
-
-🧰 Tech Stack
+## 🧰 Tech Stack
 
 | Layer          | Technology              |
-| -------------- | ----------------------- |
-| Frontend       | EJS + Custom CSS        |
-| Backend        | Node.js + Express.js    |
-| Database       | MongoDB (Mongoose ORM)  |
-| Authentication | Passport.js             |
-| Image Upload   | Cloudinary + Multer     |
-| Validation     | Schema validation (Joi) |
-| Architecture   | MVC Pattern             |
+|----------------|--------------------------|
+| Frontend       | EJS + Custom CSS         |
+| Backend        | Node.js + Express.js     |
+| Database       | MongoDB (Mongoose ORM)   |
+| Authentication | Passport.js              |
+| Image Upload   | Cloudinary + Multer      |
+| Validation     | Joi Schema Validation    |
+| Architecture   | MVC Pattern              |
 
 ---
 
-⚙️ How to Run
+## ⚙️ How to Run
 
-Clone the repository:
-
-git clone [https://github.com/Adityasaw8180/Airbnb-clone.git](https://github.com/Adityasaw8180/Airbnb-clone.git)
-
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/Adityasaw8180/Airbnb-clone.git
 cd Airbnb-clone
+```
 
-Install dependencies:
-
+### 2️⃣ Install Dependencies
+```bash
 npm install
+```
 
-Set up environment variables:
+### 3️⃣ Setup Environment Variables  
+Create `.env` file and add:
 
-CLOUDINARY_CLOUD_NAME=your_cloud_name CLOUDINARY_KEY=your_api_key CLOUDINARY_SECRET=your_api_secret ATLASDB_URL=your_mongodb_connection_url **SECRET**=your_session_secret
+```
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_KEY=your_api_key
+CLOUDINARY_SECRET=your_api_secret
+ATLASDB_URL=your_mongodb_connection_url
+SECRET=your_session_secret
+```
 
-Run the application:
+### 4️⃣ Run the App
+```bash
+npm start
+```
 
-🧪 Testing Instructions
-
-Launch the app using npm start
-
-Open [http://localhost:**8080**](http://localhost:**8080**)
-
-Register and log in using Passport authentication
-
-Create, view, edit, and delete listings
-
-Upload images using Cloudinary integration
-
-Add reviews and test category filters
-
-Check validation and error handling
-
-📦 **API** Overview
-Method	Endpoint	Description
-**GET**	/listings	Display all listings
-**POST**	/listings	Create a new listing
-**GET**	/listings/:id	Show a specific listing
-**PUT**	/listings/:id	Update an existing listing
-**DELETE**	/listings/:id	Delete a listing
-**POST**	/reviews	Add a review
-**GET**	/reviews/:id	Get reviews for a listing
-
-👤 Author : Aditya Sawant 🙋‍♂️
+### 5️⃣ Visit in Browser
+```
+http://localhost:8080
+```
 
 ---
 
-📸 Screenshots
-![Sign Up Page](screenshots/signup.png)
-![Login Page](screenshots/login.png)
-![Home Page](screenshots/home.png)
-![add new Listing Page](screenshots/newListing.png)
-![Show Listing](screenshots/show.png)
-![Reviews Listing](screenshots/reviews.png)
+## 🧪 Testing Instructions
+
+- Register and log in  
+- Create, view, edit, and delete listings  
+- Upload images (Cloudinary)  
+- Add reviews  
+- Test filters  
+- Check error handling and validation  
+
+---
+
+## 📦 API Overview
+
+| Method  | Endpoint         | Description               |
+|---------|------------------|---------------------------|
+| GET     | /listings        | Display all listings      |
+| POST    | /listings        | Create new listing        |
+| GET     | /listings/:id    | View single listing       |
+| PUT     | /listings/:id    | Update listing            |
+| DELETE  | /listings/:id    | Delete listing            |
+| POST    | /reviews         | Add review                |
+| GET     | /reviews/:id     | Get reviews for listing   |
+
+---
+
+## 👤 Author  
+**Aditya Sawant** 🙋‍♂️  
+GitHub: [Adityasaw8180](https://github.com/Adityasaw8180)
+
+---
+
+## 📸 Screenshots
+
+![Sign Up Page](screenshots/signup.png)  
+![Login Page](screenshots/login.png)  
+![Home Page](screenshots/home.png)  
+![Add New Listing Page](screenshots/newListing.png)  
+![Show Listing](screenshots/show.png)  
+![Reviews Listing](screenshots/reviews.png)  
 ![Map Listing](screenshots/map.png)
 
+---
+
 ## 📁 Project Structure
-```📁 Project Structure
-├── 📁 controllers/
-│   ├── 📄 listings.js
-│   ├── 📄 reviews.js
-│   └── 📄 users.js
-├── 📁 init/
-│   ├── 📄 data.js
-│   └── 📄 index.js
-├── 📁 models/
-│   ├── 📄 listing.js
-│   ├── 📄 review.js
-│   └── 📄 user.js  
-├── 📁 public/
-│   ├── 📁 css/
+```
+📁 Project Structure
+├── controllers/
+│   ├── listings.js
+│   ├── reviews.js
+│   └── users.js
+├── init/
+│   ├── data.js
+│   └── index.js
+├── models/
+│   ├── listing.js
+│   ├── review.js
+│   └── user.js  
+├── public/
+│   ├── css/
 │   │   ├── rating.css
 │   │   └── style.css
-│   ├── 📁 images/
+│   ├── images/
 │   │   └── airbnb.png
-│   └── 📁 js/
+│   └── js/
 │       └── script.js
-├── 📁 routes/
+├── routes/
 │   ├── listing.js
 │   ├── review.js
 │   └── user.js
-├── 📁screenshots/ 
-├── 📁 utils/
+├── screenshots/
+├── utils/
 │   ├── ExpressError.js
 │   └── wrapAsync.js
-├── 📁 views/
-│   ├── 📁 includes/
+├── views/
+│   ├── includes/
 │   │   ├── flash.ejs
 │   │   ├── footer.ejs
 │   │   └── navbar.ejs
-│   ├── 📁 layouts/
+│   ├── layouts/
 │   │   └── boilerplate.ejs
-│   ├── 📁 listings/
+│   ├── listings/
 │   │   ├── edit.ejs
 │   │   ├── index.ejs
 │   │   ├── new.ejs
 │   │   └── show.ejs
-│   ├── 📁 users/
+│   ├── users/
 │   │   ├── userLogin.ejs
 │   │   └── userSignUp.ejs
 │   └── error.ejs
-├── 📄 .env
-├── 📄 .gitignore
-├── 📄 cloudConfig.js
-├── 📄 middlewares.js
-├── 📄 schemaValidation.js
-├── 📄 package.json
-├── 📄 package-lock.json
-├── 📄 README.md
-└── 📄 server.js
-
+├── .env
+├── .gitignore
+├── cloudConfig.js
+├── middlewares.js
+├── schemaValidation.js
+├── package.json
+├── package-lock.json
+├── README.md
+└── server.js
+```
 GitHub: Adityasaw8180
+
+---
+
