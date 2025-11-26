@@ -21,14 +21,39 @@ module.exports.show = async (req, res) => {
     res.render("listings/show.ejs", { list });
 };
 
-module.exports.create = async (req, res) => {
-    const newListing = new Listing(req.body.Listing);
-    newListing.owner = req.user._id;
-    await newListing.save();
-    req.flash('success', 'Created a new listing!');
-    //console.log(newListing);
-    res.redirect("/listings");
+module.exports.create =async (req, res) => {
+
+        console.log("BODY:", req.body);
+
+        const { path, filename } = req.file;
+
+        const newListing = new Listing({
+            title: req.body.Listing.title,
+            description: req.body.Listing.description,
+            price: req.body.Listing.price,
+            location: req.body.Listing.location,
+            country: req.body.Listing.country,
+            image: {
+                url: path,
+                filename: filename
+            },
+            owner: req.user._id
+        });
+
+        await newListing.save();
+
+        req.flash("success", "New Listing Created!");
+        res.redirect(`/listings/${newListing._id}`);
 };
+
+//  async (req, res) => {
+//     const newListing = new Listing(req.body.Listing);
+//     newListing.owner = req.user._id;
+//     await newListing.save();
+//     req.flash('success', 'Created a new listing!');
+//     //console.log(newListing);
+//     res.redirect("/listings");
+// };
 
 module.exports.edit = async (req, res) => {
     const { id } = req.params;

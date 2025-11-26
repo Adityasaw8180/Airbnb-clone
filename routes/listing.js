@@ -7,34 +7,11 @@ const Listing = require("../models/listing");
 const multer = require('multer');
 const storage = require('../cloudConfig.js').storage;
 const upload = multer({ storage });
-const image = Listing;
+//const image = Listing;
 // Index + Create
 router.route("/")
     .get(wrapAsync(listings.index))
-    .post(upload.single("image"), async (req, res) => {
-
-        console.log("BODY:", req.body); // debugging
-
-        const { path, filename } = req.file;
-
-        const newListing = new Listing({
-            title: req.body.Listing.title,
-            description: req.body.Listing.description,
-            price: req.body.Listing.price,
-            location: req.body.Listing.location,
-            country: req.body.Listing.country,
-            image: {
-                url: path,
-                filename: filename
-            },
-            owner: req.user._id
-        });
-
-        await newListing.save();
-
-        req.flash("success", "New Listing Created!");
-        res.redirect(`/listings/${newListing._id}`);
-    });
+    .post(upload.single("image"), wrapAsync(listings.create));
 
 
 // New Form
