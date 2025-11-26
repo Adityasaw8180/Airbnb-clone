@@ -214,7 +214,7 @@ GitHub: [Adityasaw8180](https://github.com/Adityasaw8180)
 ├── README.md
 └── server.js
 ```
-GitHub: Adityasaw8180
+GitHub: [Adityasaw8180](https://github.com/Adityasaw8180)
 
 ---
 
