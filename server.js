@@ -90,11 +90,18 @@ app.use('/listings', listingsRoute)
 //Use review routes
 app.use('/listings/:id/reviews', reviewsRoute)
 
+// FIX: Handle Chrome DevTools request BEFORE 404
+app.get('/.well-known/appspecific/com.chrome.devtools.json', (req, res) => {
+  res.status(204).end();  
+});
+
 //Express Error for all other routes
 app.all(/.*/, (req, res, next) => {
     console.log(`404 Error: ${req.method} ${req.originalUrl}`);
     next(new ExpressError("Page Not Found", 404));
 });
+
+
 
 
 // Error Handling Middleware

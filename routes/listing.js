@@ -34,11 +34,7 @@ router.route("/:id")
 // Edit Form
 router.get("/:id/edit", isLogin, isOwner, wrapAsync(listings.edit));
 
-router.get("/category/:category", async (req, res) => {
-    const { category } = req.params;
-    const allListings = await Listing.find({ category });
-    res.render("listings/index", { allListings, category: null });
-});
+router.get("/category/:category",listings.category);
 
 
 module.exports = router;

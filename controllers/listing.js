@@ -77,6 +77,7 @@ module.exports.edit = async (req, res) => {
     console.log(originalUrl);
     res.render("listings/edit.ejs", { list, originalUrl });
 };
+
 module.exports.update = async (req, res) => {
     const { id } = req.params;
 
@@ -103,7 +104,11 @@ module.exports.update = async (req, res) => {
     res.redirect(`/listings/${id}`);
 };
 
-
+module.exports.category =  async (req, res) => {
+    const { category } = req.params;
+    const allListings = await Listing.find({ category });
+    res.render("listings/index", { allListings, category: null });
+}
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params;

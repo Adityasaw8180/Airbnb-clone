@@ -51,17 +51,68 @@
       color: #FF385C;
       border-bottom: 2px solid #FF385C;
     }
-    
-    /* NEW CSS for vertical centering if needed, but not strictly required
-       if Bootstrap utility classes below are sufficient. */
+
     .empty-message-container {
-        /* This wrapper ensures the message takes up space below the filters */
-        min-height: 50vh; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      min-height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
+    .tax-toggle {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+    }
+
+    .tax-switch {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .tax-switch input {
+      display: none;
+    }
+
+    .tax-switch .slider {
+      width: 38px;
+      height: 20px;
+      background-color: #ccc;
+      border-radius: 20px;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .tax-switch .slider::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: 0.3s;
+    }
+
+    .tax-switch input:checked+.slider {
+      background-color: #ff385c;
+    }
+
+    .tax-switch input:checked+.slider::before {
+      transform: translateX(18px);
+    }
+
+    .tax-switch .switch-text {
+      font-weight: 500;
+      color: #333;
+      margin-left: 4px;
+    }
   </style>
 
   <body>
@@ -116,29 +167,48 @@
         <div><i class="fa-regular fa-snowflake"></i></div>
         <p>Arctic</p>
       </a>
+      <div class="tax-toggle">
+        <label class="tax-switch">
+          <input type="checkbox" id="flexSwitchCheckDefault">
+          <span class="slider"></span>
+          <span class="switch-text">Apply Tax</span>
+        </label>
+      </div>
     </div>
 
     <% if(allListings.length===0) { %>
       <div class="empty-message-container">
         <h4 class="text-center text-muted">No listings found in this category.</h4>
       </div>
-    <% } else { %>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-        <% for(let listing of allListings) { %>
-          <a href="/listings/<%= listing._id %>" class="listing-link">
-            <div class="card mb-4">
-              <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img" style="height: 20rem;">
-              <div class="card-body">
-                <p class="card-text">
-                  <b>
-                    <%= listing.title %>
-                  </b><br>
-                  ₹ <%= listing.price.toLocaleString("en-IN") %> / night <br>
-                </p>
+      <% } else { %>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+          <% for(let listing of allListings) { %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+              <div class="card mb-4">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img" style="height: 20rem;">
+                <div class="card-body">
+                  <p class="card-text">
+                    <b>
+                      <%= listing.title %>
+                    </b><br>
+                    ₹ <%= listing.price.toLocaleString("en-IN") %> / night
+                      <i class="tax-info">&nbsp; &nbsp; + 18% GST </i>
+                  </p>
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
+            <% } %>
+        </div>
         <% } %>
-      </div>
-    <% } %>
   </body>
+
+  <script>
+    let taxBtn = document.getElementById("flexSwitchCheckDefault");
+    taxBtn.addEventListener("click", () => {
+      let taxInfo = document.getElementsByClassName("tax-info");
+      for (let info of taxInfo) {
+        info.style.display = (info.style.display === "inline" ? "none" : "inline");
+      }
+    });
+
+  </script>
