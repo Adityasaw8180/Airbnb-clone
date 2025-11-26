@@ -14,10 +14,10 @@ const listingSchema = new Schema({
         url: {
             type: String,
             required: false,
-            set: (v) => 
-                v === "" 
-                ? "https://images.unsplash.com/photo-1614649024145-7f847b1c803f?q=80&w=1074&auto=format&fit=crop"
-                : v,
+            set: (v) =>
+                v === ""
+                    ? "https://images.unsplash.com/photo-1614649024145-7f847b1c803f?q=80&w=1074&auto=format&fit=crop"
+                    : v,
         },
         filename: {
             type: String,
@@ -47,6 +47,11 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    category: {
+        type: String,
+        enum: ["mountains", "beach", "city", "village", "camp", "trending", "rooms", "premium"]
+    },
+
 });
 
 listingSchema.post('findOneAndDelete', async (listing) => {

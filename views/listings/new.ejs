@@ -1,84 +1,106 @@
 <%- layout('layouts/boilerplate') -%>
 
-<style>
-  body {
-    background-color: #f7f7f7;
-  }
-  .container {
-    max-width: 600px;
-    margin-top: 50px;
-    background: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  }
-  h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    font-weight: 600;
-    color: #FF385C;
-  }
-  .form-label {
-    font-weight: 500;
-  }
-  .btn-dark {
-    background-color: #FF385C;
-    border: none;
-    transition: 0.3s;
-  }
-  .btn-dark:hover {
-    background-color: #e0314b;
-  }
-</style>
-</head>
+  <style>
+    body {
+      background-color: #f7f7f7;
+    }
 
-<body>
-  <div class="container">
-    <h2><i class="fa-solid fa-plus"></i> Create New Listing</h2>
+    .container {
+      max-width: 600px;
+      margin-top: 50px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
 
-    <!-- ⭐ Bootstrap Validation Applied -->
-    <form method="POST" action="/listings" enctype="multipart/form-data" class="needs-validation" novalidate>
-      <div class="mb-3">
-        <label class="form-label">Title</label>
-        <input type="text" name="Listing[title]" class="form-control" required>
-        <div class="invalid-feedback">Please enter a title.</div>
-        <div class="valid-feedback">Title looks good.</div>
-      </div>
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #FF385C;
+    }
 
-      <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea name="Listing[description]" class="form-control" rows="3" required></textarea>
-        <div class="invalid-feedback">Description is required.</div>
-      </div>
+    .form-label {
+      font-weight: 500;
+    }
 
-      <div class="mb-3">
-        <label class="form-label">Upload Image</label>
-        <input type="file" name="image" class="form-control" required>
-        <div class="invalid-feedback">Please upload an image.</div>
-      </div>
+    .btn-dark {
+      background-color: #FF385C;
+      border: none;
+      transition: 0.3s;
+    }
 
-      <div class="mb-3">
-        <label class="form-label">Price</label>
-        <input type="number" name="Listing[price]" class="form-control" required>
-        <div class="invalid-feedback">Please enter valid price.</div>
-      </div>
+    .btn-dark:hover {
+      background-color: #e0314b;
+    }
+  </style>
+  </head>
 
-      <div class="mb-3">
-        <label class="form-label">Location</label>
-        <input type="text" name="Listing[location]" class="form-control" required>
-        <div class="invalid-feedback">Location cannot be empty.</div>
-      </div>
+  <body>
+    <div class="container">
+      <h2><i class="fa-solid fa-plus"></i> Create New Listing</h2>
 
-      <div class="mb-3">
-        <label class="form-label">Country</label>
-        <input type="text" name="Listing[country]" class="form-control" required>
-        <div class="invalid-feedback">Country is required.</div>
-      </div>
+      <!-- ⭐ Bootstrap Validation Applied -->
+      <form method="POST" action="/listings" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" name="Listing[title]" class="form-control" required>
+          <div class="invalid-feedback">Please enter a title.</div>
+          <div class="valid-feedback">Title looks good.</div>
+        </div>
 
-      <button type="submit" class="btn btn-dark w-100">Submit</button>
-    </form>
-  </div>
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea name="Listing[description]" class="form-control" rows="3" required></textarea>
+          <div class="invalid-feedback">Description is required.</div>
+        </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <div class="mb-3">
+          <label class="form-label">Upload Image</label>
+          <input type="file" name="image" class="form-control" required>
+          <div class="invalid-feedback">Please upload an image.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Price</label>
+          <input type="number" name="Listing[price]" class="form-control" required>
+          <div class="invalid-feedback">Please enter valid price.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Location</label>
+          <input type="text" name="Listing[location]" class="form-control" required>
+          <div class="invalid-feedback">Location cannot be empty.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Country</label>
+          <input type="text" name="Listing[country]" class="form-control" required>
+          <div class="invalid-feedback">Country is required.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select name="Listing[category]" class="form-select" required>
+            <option disabled selected value="">Choose a category</option>
+            <option value="mountains">Mountains</option>
+            <option value="beach">Beach</option>
+            <option value="city">City</option>
+            <option value="village">Village</option>
+            <option value="camp">Camp</option>
+            <option value="trending">Trending</option>
+            <option value="rooms">Rooms</option>
+            <option value="premium">Premium</option>
+          </select>
+          <div class="invalid-feedback">Please select a category.</div>
+        </div>
+
+
+        <button type="submit" class="btn btn-dark w-100">Submit</button>
+      </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>

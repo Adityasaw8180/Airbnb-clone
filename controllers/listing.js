@@ -1,9 +1,14 @@
 const Listing = require("../models/listing");
 
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render('listings/index.ejs', { allListings });
+    const category = req.query.category || null;
+    const allListings = category
+        ? await Listing.find({ category })
+        : await Listing.find({});
+
+    res.render("listings/index", { allListings, category });
 };
+
 
 module.exports.show = async (req, res) => {
     const { id } = req.params;
@@ -21,29 +26,31 @@ module.exports.show = async (req, res) => {
     res.render("listings/show.ejs", { list });
 };
 
-module.exports.create =async (req, res) => {
+module.exports.create = async (req, res) => {
 
-        console.log("BODY:", req.body);
+    console.log("BODY:", req.body);
 
-        const { path, filename } = req.file;
+    const { path, filename } = req.file;
 
-        const newListing = new Listing({
-            title: req.body.Listing.title,
-            description: req.body.Listing.description,
-            price: req.body.Listing.price,
-            location: req.body.Listing.location,
-            country: req.body.Listing.country,
-            image: {
-                url: path,
-                filename: filename
-            },
-            owner: req.user._id
-        });
+    const newListing = new Listing({
+        title: req.body.Listing.title,
+        description: req.body.Listing.description,
+        price: req.body.Listing.price,
+        location: req.body.Listing.location,
+        country: req.body.Listing.country,
+        category: req.body.Listing.category,
+        image: {
+            url: path,
+            filename: filename
+        },
+        owner: req.user._id
+    });
 
-        await newListing.save();
 
-        req.flash("success", "New Listing Created!");
-        res.redirect(`/listings/${newListing._id}`);
+    await newListing.save();
+
+    req.flash("success", "New Listing Created!");
+    res.redirect(`/listings/${newListing._id}`);
 };
 
 //  async (req, res) => {
@@ -70,7 +77,6 @@ module.exports.edit = async (req, res) => {
     console.log(originalUrl);
     res.render("listings/edit.ejs", { list, originalUrl });
 };
-
 module.exports.update = async (req, res) => {
     const { id } = req.params;
 
@@ -80,14 +86,13 @@ module.exports.update = async (req, res) => {
         return res.redirect('/listings');
     }
 
-    // Update basic fields
     list.title = req.body.Listing.title;
     list.description = req.body.Listing.description;
     list.price = req.body.Listing.price;
     list.location = req.body.Listing.location;
     list.country = req.body.Listing.country;
+    list.category = req.body.Listing.category; // <--- ADD THIS LINE
 
-    // If a new image is uploaded
     if (req.file) {
         list.image.url = req.file.path;
         list.image.filename = req.file.filename;
@@ -97,6 +102,7 @@ module.exports.update = async (req, res) => {
     req.flash('success', 'Updated listing!');
     res.redirect(`/listings/${id}`);
 };
+
 
 
 module.exports.delete = async (req, res) => {
