@@ -241,7 +241,7 @@ const sampleListings = [
   {
     title: "Mountain Camp Retreat",
     description: "Camp surrounded by scenic mountains and fresh air.",
-    image: { filename: "camp4", url: "https://images.unsplash.com/photo-1535083789261-2e93de18d162?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "camp4", url: "https://plus.unsplash.com/premium_photo-1661917366499-483ea9b586c3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
     price: 700,
     location: "Rocky Mountains",
     country: "United States",
@@ -315,7 +315,7 @@ const sampleListings = [
   {
     title: "Single Room in Downtown",
     description: "Affordable and cozy room for solo travelers.",
-    image: { filename: "rooms1", url: "https://images.unsplash.com/photo-1560448071-5a04a9b38f29?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms1", url: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
     price: 350,
     location: "New York City",
     country: "United States",
@@ -325,7 +325,7 @@ const sampleListings = [
   {
     title: "Double Room Hotel Paris",
     description: "Comfortable double room with city view.",
-    image: { filename: "rooms2", url: "https://images.unsplash.com/photo-1560448071-5a04a9b38f29?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms2", url: "https://images.unsplash.com/photo-1673687782286-674e29c9bf9e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
     price: 450,
     location: "Paris",
     country: "France",
@@ -335,7 +335,7 @@ const sampleListings = [
   {
     title: "Budget Room Tokyo",
     description: "Compact room in central Tokyo.",
-    image: { filename: "rooms3", url: "https://images.unsplash.com/photo-1560448071-5a04a9b38f29?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms3", url: "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
     price: 400,
     location: "Tokyo",
     country: "Japan",
@@ -345,7 +345,7 @@ const sampleListings = [
   {
     title: "Hotel Room Los Angeles",
     description: "Modern hotel room for short stays.",
-    image: { filename: "rooms4", url: "https://images.unsplash.com/photo-1560448071-5a04a9b38f29?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms4", url: "https://media.istockphoto.com/id/1383948098/photo/living-room-interior-with-a-dining-area.webp?a=1&s=612x612&w=0&k=20&c=q8ho1VPDez4hxnbUnjE2JMdmEWW6r8M3ep4U6kSuoCQ=" },
     price: 500,
     location: "Los Angeles",
     country: "United States",
@@ -355,7 +355,7 @@ const sampleListings = [
   {
     title: "Studio Apartment London",
     description: "Cozy studio for solo travelers or couples.",
-    image: { filename: "rooms5", url: "https://images.unsplash.com/photo-1560448071-5a04a9b38f29?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms5", url: "https://images.unsplash.com/photo-1649083048337-4aeb6dda80bb?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
     price: 550,
     location: "London",
     country: "United Kingdom",
@@ -377,41 +377,41 @@ const sampleListings = [
   {
     title: "Private Island Fiji",
     description: "Entire private island for exclusive vacation.",
-    image: { filename: "premium2", url: "https://images.unsplash.com/photo-1618140052121-39fc6db33972?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms2", url: "https://images.unsplash.com/photo-1618140052121-39fc6db33972?auto=format&fit=crop&w=800&q=60" },
     price: 10000,
     location: "Fiji",
     country: "Fiji",
-    category: "premium",
+    category: "rooms",
     owner: null
   },
   {
     title: "Luxury Yacht Mediterranean",
     description: "Charter a luxury yacht for a unique experience.",
-    image: { filename: "premium3", url: "https://images.unsplash.com/photo-1567016432779-2991d4e3e912?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms3", url: "https://plus.unsplash.com/premium_photo-1661962688647-d3d9a85cfbde?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
     price: 8000,
     location: "Mediterranean",
     country: "Greece",
-    category: "premium",
+    category: "rooms",
     owner: null
   },
   {
     title: "Castle Stay Scotland",
     description: "Live like royalty in Scottish Highlands castle.",
-    image: { filename: "premium4", url: "https://images.unsplash.com/photo-1585543805890-6051f7829f98?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms4", url: "https://images.unsplash.com/photo-1585543805890-6051f7829f98?auto=format&fit=crop&w=800&q=60" },
     price: 4500,
     location: "Scottish Highlands",
     country: "United Kingdom",
-    category: "premium",
+    category: "rooms",
     owner: null
   },
   {
     title: "Luxury Penthouse NYC",
     description: "Stunning penthouse apartment in New York City.",
-    image: { filename: "premium5", url: "https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?auto=format&fit=crop&w=800&q=60" },
+    image: { filename: "rooms5", url: "https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?auto=format&fit=crop&w=800&q=60" },
     price: 3500,
     location: "New York City",
     country: "United States",
-    category: "premium",
+    category: "rooms",
     owner: null
   }
 ];

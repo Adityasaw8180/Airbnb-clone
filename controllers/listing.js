@@ -2,12 +2,29 @@ const Listing = require("../models/listing");
 
 module.exports.index = async (req, res) => {
     const category = req.query.category || null;
-    const allListings = category
-        ? await Listing.find({ category })
-        : await Listing.find({});
+    const search = req.query.search || null;
 
-    res.render("listings/index", { allListings, category });
+    let allListings = [];
+
+    if (search) {
+        allListings = await Listing.find({
+            title: { $regex: search, $options: "i" }
+        });
+    } 
+    else {
+        allListings = category
+            ? await Listing.find({ category })
+            : await Listing.find();
+    }
+
+    res.render("listings/index", { 
+        allListings, 
+        category, 
+        search 
+    });
 };
+
+
 
 
 module.exports.show = async (req, res) => {
@@ -53,14 +70,6 @@ module.exports.create = async (req, res) => {
     res.redirect(`/listings/${newListing._id}`);
 };
 
-//  async (req, res) => {
-//     const newListing = new Listing(req.body.Listing);
-//     newListing.owner = req.user._id;
-//     await newListing.save();
-//     req.flash('success', 'Created a new listing!');
-//     //console.log(newListing);
-//     res.redirect("/listings");
-// };
 
 module.exports.edit = async (req, res) => {
     const { id } = req.params;
@@ -104,7 +113,7 @@ module.exports.update = async (req, res) => {
     res.redirect(`/listings/${id}`);
 };
 
-module.exports.category =  async (req, res) => {
+module.exports.category = async (req, res) => {
     const { category } = req.params;
     const allListings = await Listing.find({ category });
     res.render("listings/index", { allListings, category: null });

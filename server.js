@@ -49,7 +49,7 @@ async function main() {
 
 //express-session
 const sessionOptions = {
-    secret: "jlkasdfhnwedfljkasdf",
+    secret:  process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
