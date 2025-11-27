@@ -38,6 +38,7 @@ This project is perfect for learning:
 - Create / View / Edit / Delete listings  
 - Add price, location, description, category
 - Upload multiple images (Cloudinary)  
+- Search by title and filter by categories 
 
 ### ⭐ Reviews System
 - Add & delete reviews ( only Author )
@@ -52,6 +53,9 @@ This project is perfect for learning:
 Filter by:
 - Category   
 - Location  
+
+Search by:
+- title
   
 ### ⚠️ Error Handling
 - Custom error handler (ExpressError)
@@ -121,6 +125,7 @@ http://localhost:8080
 - Upload images (Cloudinary)  
 - Add reviews  
 - Test filters  
+- search by title
 - Check error handling and validation  
 
 ---
