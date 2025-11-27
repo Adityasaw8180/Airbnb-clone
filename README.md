@@ -36,11 +36,11 @@ This project is perfect for learning:
 
 ### 🏡 Listing Management
 - Create / View / Edit / Delete listings  
-- Add price, location, description  
+- Add price, location, description, category
 - Upload multiple images (Cloudinary)  
 
 ### ⭐ Reviews System
-- Add & delete reviews  
+- Add & delete reviews ( only Author )
 - Ratings + comments  
 - Linked with user & listing models  
 
@@ -50,11 +50,9 @@ This project is perfect for learning:
 
 ### 🎯 Filtering & Categories
 Filter by:
-- Category  
-- Price  
+- Category   
 - Location  
-- Amenities  
-
+  
 ### ⚠️ Error Handling
 - Custom error handler (ExpressError)
 - wrapAsync utility to eliminate try–catch blocks
@@ -67,15 +65,15 @@ Filter by:
 
 ## 🧰 Tech Stack
 
-| Layer          | Technology              |
-|----------------|--------------------------|
-| Frontend       | EJS + Custom CSS         |
-| Backend        | Node.js + Express.js     |
-| Database       | MongoDB (Mongoose ORM)   |
-| Authentication | Passport.js              |
-| Image Upload   | Cloudinary + Multer      |
-| Validation     | Joi Schema Validation    |
-| Architecture   | MVC Pattern              |
+| Layer          | Technology                   |
+|----------------|------------------------------|
+| Frontend       | EJS + Custom CSS + bootstrap |
+| Backend        | Node.js + Express.js         |
+| Database       | MongoDB (Mongoose ORM)       |
+| Authentication | Passport.js                  |
+| Image Upload   | Cloudinary + Multer          |
+| Validation     | Joi Schema Validation        |
+| Architecture   | MVC Pattern                  |
 
 ---
 
@@ -96,10 +94,10 @@ npm install
 Create `.env` file and add:
 
 ```
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_KEY=your_api_key
-CLOUDINARY_SECRET=your_api_secret
-ATLASDB_URL=your_mongodb_connection_url
+PORT=8080
+CLOUD_NAME=your_cloud_name
+CLOUD_API_KEY=your_api_key
+CLOUD_API_SECRET=your_api_secret
 SECRET=your_session_secret
 ```
 
@@ -117,8 +115,9 @@ http://localhost:8080
 
 ## 🧪 Testing Instructions
 
-- Register and log in  
-- Create, view, edit, and delete listings  
+- signup and log in  
+- Create, view, edit, and delete listings
+- check listings location (map location inbuild )
 - Upload images (Cloudinary)  
 - Add reviews  
 - Test filters  
@@ -128,15 +127,16 @@ http://localhost:8080
 
 ## 📦 API Overview
 
-| Method  | Endpoint         | Description               |
-|---------|------------------|---------------------------|
-| GET     | /listings        | Display all listings      |
-| POST    | /listings        | Create new listing        |
-| GET     | /listings/:id    | View single listing       |
-| PUT     | /listings/:id    | Update listing            |
-| DELETE  | /listings/:id    | Delete listing            |
-| POST    | /reviews         | Add review                |
-| GET     | /reviews/:id     | Get reviews for listing   |
+| Method  | Endpoint                      | Description               |
+|---------|-------------------------------|---------------------------|
+| GET     | /listings                     | Display all listings      |
+| POST    | /listings                     | Create new listing        |
+| GET     | /listings/:id                 | View single listing       |
+| PUT     | /listings/:id                 | Update listing            |
+| DELETE  | /listings/:id                 | Delete listing            |
+| GET     | /listings/category/:category  | Get listings by category |
+| POST    | /reviews                      | Add review                |
+| GET     | /reviews/:id                  | Get reviews for listing   |
 
 ---
 
