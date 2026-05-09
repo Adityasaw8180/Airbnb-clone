@@ -33,7 +33,7 @@ app.set('views', path.join(__dirname, "views"));
 app.use(methodOverride('_method'));
 
 // Database connection
-const MONGO_DB = "mongodb://127.0.0.1:27017/airbnb";
+const CLOUD_DB = process.env.ATLASDB_URL;
 
 //function to connect to mongoDB
 main().then(() => {
@@ -44,7 +44,7 @@ main().then(() => {
 
 //connect mongodb
 async function main() {
-    await mongoose.connect(MONGO_DB);
+    await mongoose.connect(CLOUD_DB);
 }
 
 //express-session

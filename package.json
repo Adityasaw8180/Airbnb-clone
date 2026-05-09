@@ -1,4 +1,7 @@
 {
+  "engines":{
+    "node": "20.19.3"
+  },
   "name": "airbnb",
   "version": "1.0.0",
   "description": "MajorProject",
@@ -20,6 +23,7 @@
   "homepage": "https://github.com/Adityasaw8180/Airbnb#readme",
   "dependencies": {
     "cloudinary": "^1.37.2",
+    "connect": "^3.7.0",
     "connect-flash": "^0.1.1",
     "cookie": "^1.0.2",
     "dotenv": "^17.2.3",
@@ -30,6 +34,7 @@
     "joi": "^18.0.1",
     "method-override": "^3.0.0",
     "mogoose": "^0.0.1-security",
+    "mongo": "^0.1.0",
     "mongoose": "^8.18.2",
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^4.0.0",
