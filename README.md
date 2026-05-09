@@ -10,6 +10,12 @@ A full-stack clone of the **Airbnb platform**, built using Node.js, Express, Mon
 
 ---
 
+## 🌐 Live Demo
+
+Experience the live deployed project here:
+
+🔗 [Airbnb Clone Live Website](https://airbnb-project-7z2j.onrender.com/)
+
 ## 📖 Description
 
 The **Airbnb Clone** is a full-stack web application that replicates essential features of Airbnb.  
